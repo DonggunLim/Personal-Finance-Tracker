@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: rgb(245, 245, 247);
+}
+
+@layer components {
+  .input {
+    @apply flex items-center justify-center bg-neutral-100 py-1 px-2 rounded-md;
+  }
+
+  .box {
+    @apply w-full p-3 text-xs bg-white rounded-xl;
+  }
+}
