@@ -10,15 +10,25 @@ type FormEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.MouseEvent<HTMLButtonElement>;
 
+export type ExpenseFormData = {
+  date: string;
+  price: string;
+  paymentMethod: string;
+  tag: string;
+  description: string;
+};
+
+const InitialFormData = {
+  date: "",
+  price: "",
+  paymentMethod: "",
+  tag: "",
+  description: "",
+};
+
 export default function ExpenseForm() {
-  const [formData, setFormData] = useState({
-    date: "",
-    price: "",
-    paymentMethod: "",
-    tag: "",
-    description: "",
-  });
-  const [formattedPrice, setFormattedPrice] = useState("");
+  const [formKey, setFormKey] = useState(0);
+  const [formData, setFormData] = useState<ExpenseFormData>(InitialFormData);
 
   const handleChange = (e: FormEvent, fieldName: string) => {
     let value: string;
@@ -29,12 +39,7 @@ export default function ExpenseForm() {
       value = (e.target as HTMLInputElement).value;
     }
 
-    if (fieldName === "price") {
-      const inputNumbers = value.replace(/[^0-9]/g, "");
-      setFormattedPrice(formatPriceToCurrency(inputNumbers));
-      value = inputNumbers;
-    }
-
+    if (fieldName === "price") value = value.replace(/[^0-9]/g, "");
     setFormData((prev) => ({
       ...prev,
       [fieldName]: value,
@@ -43,12 +48,24 @@ export default function ExpenseForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    fetch("/api/records", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    }) //
+      .then((res) => {
+        if (res.ok) console.log("formSubmit complited");
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setFormData(InitialFormData);
+        setFormKey(formKey + 1);
+      });
   };
 
   return (
     <form
       className="box flex flex-wrap justify-between  items-center"
+      key={formKey}
       onSubmit={handleSubmit}
     >
       <div className="input w-36">
@@ -63,7 +80,7 @@ export default function ExpenseForm() {
         <input
           className="w-full outline-none text-end bg-neutral-100"
           placeholder="-"
-          value={formattedPrice}
+          value={formatPriceToCurrency(formData.price)}
           onChange={(e) => handleChange(e, "price")}
         />
         <span>원</span>

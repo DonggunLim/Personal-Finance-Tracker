@@ -12,8 +12,16 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn({ user: { id, name, email, image } }) {
       if (!email || !email) return false;
-      addUser({ id, username: name || "", email, image: image || "" });
+      addUser({ id, name: name || "", email, image: image || "" });
       return true;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id as string;
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) token.id = user.id;
+      return token;
     },
   },
   pages: {
