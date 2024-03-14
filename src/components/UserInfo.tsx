@@ -7,9 +7,12 @@ export default async function UserInfo() {
   const user = session?.user;
 
   return (
-    <div className="flex justify-center items-center gap-2">
+    <div className="flex justify-center items-center gap-2 px-2 py-1">
       <Avatar image={user?.image || ""} />
-      <p>{user?.name}</p>
+      <div className="font-medium text-xs">
+        <p>{user?.name}</p>
+        <p>{user?.email}</p>
+      </div>
     </div>
   );
 }
