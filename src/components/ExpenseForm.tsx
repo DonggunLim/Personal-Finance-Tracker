@@ -64,7 +64,7 @@ export default function ExpenseForm() {
 
   return (
     <form
-      className="box flex flex-wrap justify-between  items-center"
+      className="box flex flex-wrap justify-between  items-center mt-8"
       key={formKey}
       onSubmit={handleSubmit}
     >

@@ -1,5 +1,6 @@
 import { ExpenseFormData } from "@/components/ExpenseForm";
 import { client } from "./sanity";
+import { groupRecordsByDate } from "@/utilities/common";
 
 export const AddRecord = (userId: string, formData: ExpenseFormData) => {
   const { date, price, paymentMethod, tag, description } = formData;
@@ -20,4 +21,13 @@ export const AddRecord = (userId: string, formData: ExpenseFormData) => {
       },
       { autoGenerateArrayKeys: true }
     );
+};
+
+export const getRecord = async (userId: string) => {
+  const query = `*[_type == "record" && author->_id == "${userId}"]
+   | order(date desc)`;
+
+  return client //
+    .fetch(query)
+    .then(groupRecordsByDate);
 };
