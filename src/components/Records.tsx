@@ -1,29 +1,23 @@
 "use client";
 
-import { GroupedRecords } from "@/utilities/common";
+import { GroupedRecords, Record, groupRecordsByDate } from "@/utilities/common";
 import { useEffect, useState } from "react";
 import RecordCard from "./RecordCard";
 
-export default function Records() {
-  const [records, setRecords] = useState<GroupedRecords>({});
+type Props = {
+  records: Record[];
+};
+
+export default function Records({ records }: Props) {
+  const [groupedRecords, setGroupedRecords] = useState<GroupedRecords>({});
 
   useEffect(() => {
-    fetch("/api/records", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setRecords(data);
-      })
-      .catch((error) => console.error("There was an error!", error));
-  }, []);
+    setGroupedRecords(groupRecordsByDate(records));
+  }, [records]);
 
   return (
     <div className="w-full flex flex-col">
-      {Object.entries(records).map(([date, recordsForDate]) => (
+      {Object.entries(groupedRecords).map(([date, recordsForDate]) => (
         <div key={date} className="flex my-2">
           <div className="flex flex-col relative mr-3 w-4 items-center">
             <div

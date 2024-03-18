@@ -10,6 +10,12 @@ export type GroupedRecords = {
   [key: string]: Record[];
 };
 
+export type TagSummary = {
+  tag: string;
+  count: number;
+  total_price: number;
+};
+
 export const formatPriceToCurrency = (value: string) => {
   const numberValue = Number(value);
   return new Intl.NumberFormat("ko-KR", {
@@ -27,4 +33,35 @@ export const groupRecordsByDate = (records: Record[]) => {
     acc[date].push(record);
     return acc;
   }, {});
+};
+
+export const orderByTag = (records: Record[]) => {
+  const tagUsage: { [key: string]: number } = {};
+  const tagPrices: { [key: string]: number } = {};
+
+  records.forEach((record) => {
+    const { tag, price } = record;
+    if (tag in tagUsage) {
+      tagUsage[tag] += 1;
+      tagPrices[tag] += parseInt(price, 10);
+    } else {
+      tagUsage[tag] = 1;
+      tagPrices[tag] = parseInt(price, 10);
+    }
+  });
+
+  const sortedTags = Object.keys(tagUsage).sort((a, b) => {
+    if (tagUsage[b] - tagUsage[a] === 0) {
+      return tagPrices[b] - tagPrices[a];
+    }
+    return tagUsage[b] - tagUsage[a];
+  });
+
+  const result = sortedTags.map((tag) => ({
+    tag: tag,
+    count: tagUsage[tag],
+    total_price: tagPrices[tag],
+  }));
+
+  return result;
 };
