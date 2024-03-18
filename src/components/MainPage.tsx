@@ -7,9 +7,19 @@ import TagRank from "./TagRank";
 import UserSetForm from "./UserSetForm";
 import { Record } from "@/utilities/common";
 import ExpenditureRank from "./ExpenditureRank";
+import DailyLimitExceeds from "./DailyLimitExceeds";
+import { SanityUser } from "@/types/user";
 
 export default function MainPage() {
   const [records, setRecords] = useState<Record[]>([]);
+  const [userData, setUserdata] = useState<SanityUser>({
+    id: "",
+    name: "",
+    email: "",
+    image: "",
+    fixedIncome: "",
+    dailySpendingLimit: "",
+  });
 
   useEffect(() => {
     fetch("/api/records", {
@@ -21,6 +31,12 @@ export default function MainPage() {
       .then((res) => res.json())
       .then(setRecords)
       .catch((error) => console.error("There was an error!", error));
+
+    fetch("/api/user", {
+      method: "GET",
+    }) //
+      .then((res) => res.json())
+      .then((res) => setUserdata(res[0]));
   }, []);
 
   return (
@@ -31,7 +47,11 @@ export default function MainPage() {
         <Records records={records} />
       </div>
       <div className="flex flex-col gap-8 mt-12">
-        <UserSetForm />
+        <UserSetForm userData={userData} />
+        <DailyLimitExceeds
+          records={records}
+          dailySpendingLimit={userData.dailySpendingLimit}
+        />
         <TagRank records={records} />
         <ExpenditureRank records={records} />
       </div>

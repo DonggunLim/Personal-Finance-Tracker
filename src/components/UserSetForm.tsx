@@ -4,24 +4,11 @@ import { SanityUser } from "@/types/user";
 import { formatPriceToCurrency } from "@/utilities/common";
 import { useEffect, useState } from "react";
 
-export default function UserSetForm() {
-  const [userData, setUserdata] = useState<SanityUser>({
-    id: "",
-    name: "",
-    email: "",
-    image: "",
-    fixedIncome: "",
-    dailySpendingLimit: "",
-  });
+type Props = {
+  userData: SanityUser;
+};
 
-  useEffect(() => {
-    fetch("/api/user", {
-      method: "GET",
-    }) //
-      .then((res) => res.json())
-      .then((res) => setUserdata(res[0]));
-  }, []);
-
+export default function UserSetForm({ userData }: Props) {
   return (
     <div className="w-full flex gap-2">
       <FixedIncome IntialfixedIncome={userData.fixedIncome} />

@@ -77,3 +77,26 @@ export const orderByPrice = (records: Record[]) => {
     .sort((a, b) => parseInt(b.price, 10) - parseInt(a.price, 10))
     .slice(0, 5);
 };
+
+export const countDaysOfExceeds = (
+  records: Record[],
+  dailySpendingLimit: number
+) => {
+  const dailySums: { [key: string]: number } = {};
+
+  records.forEach((record) => {
+    const { date, price } = record;
+    const amount = parseInt(price, 10);
+
+    if (dailySums[date]) {
+      dailySums[date] += amount;
+    } else {
+      dailySums[date] = amount;
+    }
+  });
+
+  const daysExceedingLimit = Object.values(dailySums) //
+    .filter((sum) => sum > dailySpendingLimit).length;
+
+  return daysExceedingLimit;
+};
