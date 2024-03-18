@@ -100,3 +100,23 @@ export const countDaysOfExceeds = (
 
   return daysExceedingLimit;
 };
+
+export const getStartEndDate = (date: string) => {
+  const year = date.split("-")[0];
+  const month = date.split("-")[1];
+  const nextMonth =
+    parseInt(month) === 12
+      ? "01"
+      : (parseInt(month) + 1).toString().padStart(2, "0");
+  const nextYear =
+    parseInt(month) === 12 ? (parseInt(year) + 1).toString() : year;
+
+  const startDate = `${year}-${month}-01`;
+  const endDate = `${nextYear}-${nextMonth}-01`;
+
+  return { startDate, endDate };
+};
+
+export const convertDateToYYYYMMDD = (date: Date) => {
+  return date.toISOString().split("T")[0];
+};

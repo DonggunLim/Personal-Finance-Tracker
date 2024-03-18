@@ -17,6 +17,11 @@ export default function Records({ records }: Props) {
 
   return (
     <div className="w-full flex flex-col">
+      {records.length === 0 && (
+        <div className="flex items-center justify-center py-28">
+          <p className="font-bold">지출 내역이 없습니다.</p>
+        </div>
+      )}
       {Object.entries(groupedRecords).map(([date, recordsForDate]) => (
         <div key={date} className="flex my-2">
           <div className="flex flex-col relative mr-3 w-4 items-center">

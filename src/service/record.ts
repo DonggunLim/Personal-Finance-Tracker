@@ -28,3 +28,15 @@ export const getRecord = async (userId: string) => {
   return client //
     .fetch(query);
 };
+
+export const getRecordByDate = (
+  userId: string,
+  startDate: string,
+  endDate: string
+) => {
+  const query = `*[_type == "record" && author->_id == "${userId}" 
+  && date >= "${startDate}" && date < "${endDate}"]`;
+
+  return client //
+    .fetch(query);
+};
