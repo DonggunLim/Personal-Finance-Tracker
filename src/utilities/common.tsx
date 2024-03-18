@@ -16,6 +16,12 @@ export type TagSummary = {
   total_price: number;
 };
 
+export type PriceSummary = {
+  tag: string;
+  description: string;
+  price: string;
+};
+
 export const formatPriceToCurrency = (value: string) => {
   const numberValue = Number(value);
   return new Intl.NumberFormat("ko-KR", {
@@ -64,4 +70,10 @@ export const orderByTag = (records: Record[]) => {
   }));
 
   return result;
+};
+
+export const orderByPrice = (records: Record[]) => {
+  return records
+    .sort((a, b) => parseInt(b.price, 10) - parseInt(a.price, 10))
+    .slice(0, 5);
 };

@@ -6,6 +6,7 @@ import Records from "./Records";
 import TagRank from "./TagRank";
 import UserSetForm from "./UserSetForm";
 import { Record } from "@/utilities/common";
+import ExpenditureRank from "./ExpenditureRank";
 
 export default function MainPage() {
   const [records, setRecords] = useState<Record[]>([]);
@@ -32,6 +33,7 @@ export default function MainPage() {
       <div className="flex flex-col gap-8 mt-12">
         <UserSetForm />
         <TagRank records={records} />
+        <ExpenditureRank records={records} />
       </div>
     </main>
   );
