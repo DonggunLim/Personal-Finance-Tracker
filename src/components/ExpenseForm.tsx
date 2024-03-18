@@ -64,7 +64,7 @@ export default function ExpenseForm() {
 
   return (
     <form
-      className="box flex flex-wrap justify-between  items-center mt-8"
+      className="box flex flex-wrap justify-between  items-center"
       key={formKey}
       onSubmit={handleSubmit}
     >
@@ -83,7 +83,6 @@ export default function ExpenseForm() {
           value={formatPriceToCurrency(formData.price)}
           onChange={(e) => handleChange(e, "price")}
         />
-        <span>원</span>
       </div>
       <PaymentMenu handleChange={handleChange} />
       <TagMenu handleChange={handleChange} />

@@ -7,6 +7,12 @@ export type AuthUser = {
   image: string;
 };
 
+export const getUser = (userId: string) => {
+  const query = `*[_type == "user" && _id == "${userId}"]`;
+  return client //
+    .fetch(query);
+};
+
 export const addUser = ({ id, name, email, image }: AuthUser) => {
   return client //
     .createIfNotExists({
@@ -18,4 +24,14 @@ export const addUser = ({ id, name, email, image }: AuthUser) => {
       fixedIncome: "",
       dailySpendingLimit: "",
     });
+};
+
+export const updateUserinfo = (
+  userId: string,
+  updatedObject: { [title: string]: string }
+) => {
+  return client //
+    .patch(userId)
+    .set(updatedObject)
+    .commit();
 };
