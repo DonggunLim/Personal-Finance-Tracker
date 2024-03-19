@@ -22,6 +22,11 @@ export type PriceSummary = {
   price: string;
 };
 
+export type LineChartData = {
+  name: string;
+  totalExpense: number;
+};
+
 export const formatPriceToCurrency = (value: string) => {
   const numberValue = Number(value);
   return new Intl.NumberFormat("ko-KR", {
@@ -119,4 +124,24 @@ export const getStartEndDate = (date: string) => {
 
 export const convertDateToYYYYMMDD = (date: Date) => {
   return date.toISOString().split("T")[0];
+};
+
+export const processGroupedRecordsToLineChartData = (records: Record[]) => {
+  const groupedRecords = groupRecordsByDate(records);
+  const chartData: LineChartData[] = [];
+
+  Object.entries(groupedRecords).forEach(([date, records]) => {
+    const totalExpense = records.reduce(
+      (sum, record) => sum + parseInt(record.price, 10),
+      0
+    );
+    chartData.push({
+      name: date,
+      totalExpense,
+    });
+  });
+
+  chartData.sort((a, b) => a.name.localeCompare(b.name));
+
+  return chartData;
 };

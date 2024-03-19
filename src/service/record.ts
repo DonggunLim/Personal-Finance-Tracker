@@ -34,6 +34,8 @@ export const getRecordByDate = (
   startDate: string,
   endDate: string
 ) => {
+  console.log(startDate);
+  console.log(endDate);
   const query = `*[_type == "record" && author->_id == "${userId}" 
   && date >= "${startDate}" && date < "${endDate}"]`;
 

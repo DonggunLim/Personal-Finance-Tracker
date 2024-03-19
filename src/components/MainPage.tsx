@@ -22,7 +22,6 @@ export default function MainPage() {
     fixedIncome: "",
     dailySpendingLimit: "",
   });
-
   useEffect(() => {
     fetch(`/api/records/${convertDateToYYYYMMDD(currentDate)}`, {
       method: "GET",

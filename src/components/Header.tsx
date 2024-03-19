@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SignOutButton from "./Buttons/SignOutButton";
 import UserInfo from "./UserInfo";
 
@@ -7,10 +8,10 @@ export default function Header() {
       <div className="max-w-6xl h-full m-auto px-4 flex items-center justify-end">
         <ul className="flex gap-2">
           <li className="text-sm font-bold flex items-center hover:text-purple-400 cursor-pointer">
-            홈
+            <Link href="/">홈</Link>
           </li>
           <li className="text-sm font-bold flex items-center hover:text-purple-400 cursor-pointer">
-            리포트
+            <Link href="/report">리포트</Link>
           </li>
           <li>
             <SignOutButton />
