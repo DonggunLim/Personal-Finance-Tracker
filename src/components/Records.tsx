@@ -14,7 +14,7 @@ export default function Records({ records }: Props) {
   useEffect(() => {
     setGroupedRecords(groupRecordsByDate(records));
   }, [records]);
-  console.log(groupedRecords);
+
   return (
     <div className="w-full flex flex-col">
       {records.length === 0 && (

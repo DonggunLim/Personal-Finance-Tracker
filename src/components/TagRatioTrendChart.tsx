@@ -13,9 +13,5 @@ export default function TagRatioTrendChart({ records }: Props) {
     setPieChartData(orderByTag(records));
   }, [records]);
 
-  return (
-    <div className="box">
-      <PieGraphe data={pieChartData} />
-    </div>
-  );
+  return <PieGraphe data={pieChartData} />;
 }

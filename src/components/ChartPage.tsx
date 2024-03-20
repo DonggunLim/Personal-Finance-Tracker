@@ -52,13 +52,15 @@ export default function ChartPage() {
         <Records records={records} />
       </div>
       <div>
-        <div className="flex flex-col gap-8 sticky top-24">
-          <ExpenditureTrendChart
-            records={records}
-            dailySpendingLimit={userData.dailySpendingLimit}
-          />
-          <TagRatioTrendChart records={records} />
-        </div>
+        {records.length > 0 && (
+          <div className="box flex flex-col gap-8 mt-12 sticky top-24">
+            <ExpenditureTrendChart
+              records={records}
+              dailySpendingLimit={userData.dailySpendingLimit}
+            />
+            <TagRatioTrendChart records={records} />
+          </div>
+        )}
       </div>
     </main>
   );

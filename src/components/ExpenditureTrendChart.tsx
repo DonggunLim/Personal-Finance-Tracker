@@ -22,8 +22,6 @@ export default function ExpenditureTrendChart({
   }, [records]);
 
   return (
-    <div className="box">
-      <LineGraphe data={chartData} dailySpendingLimit={dailySpendingLimit} />
-    </div>
+    <LineGraphe data={chartData} dailySpendingLimit={dailySpendingLimit} />
   );
 }
