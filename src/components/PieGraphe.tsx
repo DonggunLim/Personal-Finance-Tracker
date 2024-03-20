@@ -62,23 +62,20 @@ export default function PieGraphe({ data }: Props) {
   const customizedLabel = renderLabel(data);
 
   return (
-    <PieChart width={300} height={300}>
+    <PieChart width={330} height={330}>
       <Pie
         data={data}
-        cx={150}
-        cy={150}
+        cx={165}
+        cy={165}
         labelLine={false}
         label={customizedLabel}
         outerRadius={80}
         fill="#ffffff"
         dataKey="count"
       >
-        {data.map((entry, index) => {
-          console.log(entry);
-          return (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          );
-        })}
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
       </Pie>
     </PieChart>
   );

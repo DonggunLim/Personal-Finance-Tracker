@@ -5,6 +5,8 @@ import PeriodSelector from "./PeriodSelector";
 import ExpenditureTrendChart from "./ExpenditureTrendChart";
 import { Record } from "@/utilities/common";
 import { SanityUser } from "@/types/user";
+import TagRatioTrendChart from "./TagRatioTrendChart";
+import Records from "./Records";
 
 export default function ChartPage() {
   const [period, setPeriod] = useState({ startDate: "", endDate: "" });
@@ -44,15 +46,19 @@ export default function ChartPage() {
   }, [period]);
 
   return (
-    <main className="max-w-5xl mx-auto px-4 gap-16 grid grid-cols-4">
-      <div className="col-span-1 mt-12">
+    <main className="max-w-5xl mx-auto px-4 gap-16 grid grid-cols-[7fr_2fr]">
+      <div className="mt-12">
         <PeriodSelector onChange={handleDateInputChange} />
+        <Records records={records} />
       </div>
-      <div className="col-span-3 mt-12">
-        <ExpenditureTrendChart
-          records={records}
-          dailySpendingLimit={userData.dailySpendingLimit}
-        />
+      <div>
+        <div className="flex flex-col gap-8 sticky top-24">
+          <ExpenditureTrendChart
+            records={records}
+            dailySpendingLimit={userData.dailySpendingLimit}
+          />
+          <TagRatioTrendChart records={records} />
+        </div>
       </div>
     </main>
   );
