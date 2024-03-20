@@ -36,7 +36,7 @@ export const formatPriceToCurrency = (value: string) => {
 };
 
 export const groupRecordsByDate = (records: Record[]) => {
-  return records.reduce<GroupedRecords>((acc, record) => {
+  const grouped = records.reduce<GroupedRecords>((acc, record) => {
     const date = record.date;
     if (!acc[date]) {
       acc[date] = [];
@@ -44,6 +44,12 @@ export const groupRecordsByDate = (records: Record[]) => {
     acc[date].push(record);
     return acc;
   }, {});
+
+  const sortedEntries = Object.entries(grouped).sort((a, b) => {
+    return new Date(b[0]).getTime() - new Date(a[0]).getTime();
+  });
+
+  return Object.fromEntries(sortedEntries);
 };
 
 export const orderByTag = (records: Record[]) => {
