@@ -11,9 +11,13 @@ import DailyLimitExceeds from "./DailyLimitExceeds";
 import { SanityUser } from "@/types/user";
 import SelectedMonth from "./SelectedMonth";
 
-export default function MainPage() {
+type Props = {
+  initialRecords: Record[];
+};
+
+export default function MainPage({ initialRecords }: Props) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [records, setRecords] = useState<Record[]>([]);
+  const [records, setRecords] = useState<Record[]>(initialRecords);
   const [userData, setUserdata] = useState<SanityUser>({
     id: "",
     name: "",
