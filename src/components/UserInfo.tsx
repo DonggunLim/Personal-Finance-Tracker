@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import Avatar from "./Avatar";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
 export default async function UserInfo() {
   const session = await getServerSession(authOptions);
