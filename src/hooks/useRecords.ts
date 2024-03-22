@@ -26,5 +26,15 @@ export const useRecords = (
       );
   }, [currentDate, cachedKey, currentKey, records.length]);
 
-  return records;
+  const addNewFormRecordToPrevRecords = (record: Record) =>
+    setRecords((prev) => [...prev, { ...record, newAdded: true }]);
+
+  const removeRecordsFromPrevRecords = () =>
+    setRecords((prev) => prev.filter((r) => r._id));
+
+  return {
+    records,
+    addNewFormRecordToPrevRecords,
+    removeRecordsFromPrevRecords,
+  };
 };

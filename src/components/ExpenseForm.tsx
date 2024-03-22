@@ -3,7 +3,7 @@
 import { useState } from "react";
 import PaymentMenu from "./Menu/PaymentMenu";
 import TagMenu from "./Menu/TagMenu";
-import { formatPriceToCurrency } from "@/utilities/common";
+import { Record, formatPriceToCurrency } from "@/utilities/common";
 import AddIconButton from "./Buttons/AddIconButton";
 
 type FormEvent =
@@ -18,6 +18,11 @@ export type ExpenseFormData = {
   description: string;
 };
 
+type Props = {
+  addNewFormRecordToPrevRecords: (Record: Record) => void;
+  removeRecordsFromPrevRecords: (Record: Record) => void;
+};
+
 const InitialFormData = {
   date: "",
   price: "",
@@ -26,7 +31,10 @@ const InitialFormData = {
   description: "",
 };
 
-export default function ExpenseForm() {
+export default function ExpenseForm({
+  addNewFormRecordToPrevRecords,
+  removeRecordsFromPrevRecords,
+}: Props) {
   const [formKey, setFormKey] = useState(0);
   const [formData, setFormData] = useState<ExpenseFormData>(InitialFormData);
 
@@ -48,6 +56,7 @@ export default function ExpenseForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    addNewFormRecordToPrevRecords(formData);
     fetch("/api/records", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -55,7 +64,10 @@ export default function ExpenseForm() {
       .then((res) => {
         if (res.ok) console.log("formSubmit complited");
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error);
+        removeRecordsFromPrevRecords(formData);
+      })
       .finally(() => {
         setFormData(InitialFormData);
         setFormKey(formKey + 1);

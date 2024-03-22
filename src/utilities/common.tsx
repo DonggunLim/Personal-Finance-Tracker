@@ -4,6 +4,7 @@ export type Record = {
   description: string;
   paymentMethod: string;
   tag: string;
+  _id?: string;
 };
 
 export type GroupedRecords = {
