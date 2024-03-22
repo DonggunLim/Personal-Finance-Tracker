@@ -25,7 +25,6 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
     addNewFormRecordToPrevRecords,
     removeRecordsFromPrevRecords,
   } = useRecords(currentDate, initialRecords, cachedKey);
-  console.log(records);
   return (
     <main className="max-w-[1280px] mx-auto px-4 grid grid-cols-[2fr_7fr_3fr] gap-16">
       <div className="mt-12">

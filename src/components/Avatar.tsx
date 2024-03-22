@@ -6,8 +6,12 @@ type Props = {
 
 export default function Avatar({ image }: Props) {
   return (
-    <div className="relative w-8 h-8">
-      <Image alt="user-image" src={image} fill className="rounded-full" />
-    </div>
+    <Image
+      alt="user-image"
+      src={image}
+      width={32}
+      height={32}
+      className="rounded-full object-contain"
+    />
   );
 }

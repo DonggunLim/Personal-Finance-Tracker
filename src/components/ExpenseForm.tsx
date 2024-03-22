@@ -100,8 +100,8 @@ export default function ExpenseForm({
       <TagMenu handleChange={handleChange} />
       <div className="input w-36">
         <input
-          placeholder="내용"
           type="text"
+          placeholder="내용"
           className="w-full outline-none bg-neutral-100"
           onChange={(e) => handleChange(e, "description")}
         />
