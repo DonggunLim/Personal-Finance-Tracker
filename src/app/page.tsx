@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import MainPage from "@/components/MainPage";
 import { convertDateToYYYYMMDD } from "@/utilities/common";
 import { headers } from "next/headers";
+import Header from "@/components/Header";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -15,7 +16,12 @@ export default async function Home() {
 
   const { data, cachedKey } = await getInitialRecords();
 
-  return <MainPage initialRecords={data} cachedKey={cachedKey} />;
+  return (
+    <>
+      <Header />
+      <MainPage initialRecords={data} cachedKey={cachedKey} />
+    </>
+  );
 }
 
 async function getInitialRecords() {
