@@ -1,17 +1,14 @@
-import { useState } from "react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 
-const today = new Date();
-
 type Props = {
+  currentDate: Date;
   handlePrevBtn: () => void;
   handleNextBtn: () => void;
-  currentDate: Date;
 };
 export default function SelectedMonth({
-  handlePrevBtn,
-  handleNextBtn,
   currentDate,
+  handleNextBtn,
+  handlePrevBtn,
 }: Props) {
   return (
     <div>
