@@ -13,13 +13,13 @@ export default async function Home() {
     redirect("/signin");
   }
 
-  const initialRecords = await getInitialRecords();
+  const { data, cachedKey } = await getInitialRecords();
 
-  return <MainPage initialRecords={initialRecords} />;
+  return <MainPage initialRecords={data} cachedKey={cachedKey} />;
 }
 
 async function getInitialRecords() {
-  const date = convertDateToYYYYMMDD(new Date());
+  const date: string = convertDateToYYYYMMDD(new Date());
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/records/${date}`,
     {
@@ -32,5 +32,6 @@ async function getInitialRecords() {
     throw new Error("failed to initialRecords");
   }
 
-  return res.json();
+  const data = await res.json();
+  return { data, cachedKey: date };
 }

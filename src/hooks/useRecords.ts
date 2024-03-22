@@ -3,10 +3,16 @@
 import { Record, convertDateToYYYYMMDD } from "@/utilities/common";
 import { useEffect, useState } from "react";
 
-export const useRecords = (currentDate: Date, initialRecords: Record[]) => {
+export const useRecords = (
+  currentDate: Date,
+  initialRecords: Record[],
+  cachedKey: string
+) => {
   const [records, setRecords] = useState<Record[]>(initialRecords);
+  const currentKey = convertDateToYYYYMMDD(currentDate);
 
   useEffect(() => {
+    if (currentKey === cachedKey && records.length > 0) return;
     fetch(`/api/records/${convertDateToYYYYMMDD(currentDate)}`, {
       method: "GET",
       headers: {
@@ -16,9 +22,9 @@ export const useRecords = (currentDate: Date, initialRecords: Record[]) => {
       .then((res) => res.json())
       .then(setRecords)
       .catch((error) =>
-        console.error("There was an error fetching records!", error)
+        console.error("There was an error fetching record", error)
       );
-  }, [currentDate]);
+  }, [currentDate, cachedKey, currentKey, records.length]);
 
   return records;
 };

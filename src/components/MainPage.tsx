@@ -14,12 +14,13 @@ import { useRecords } from "@/hooks/useRecords";
 
 type Props = {
   initialRecords: Record[];
+  cachedKey: string;
 };
 
-export default function MainPage({ initialRecords }: Props) {
+export default function MainPage({ initialRecords, cachedKey }: Props) {
   const { currentDate, handlePrevBtn, handleNextBtn } = useDateNavigation();
   const userData = useUserData();
-  const records = useRecords(currentDate, initialRecords);
+  const records = useRecords(currentDate, initialRecords, cachedKey);
 
   return (
     <main className="max-w-[1280px] mx-auto px-4 grid grid-cols-[2fr_7fr_3fr] gap-16">
