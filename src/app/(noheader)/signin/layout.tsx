@@ -3,5 +3,9 @@ type Props = {
 };
 
 export default function SignInLayout({ children }: Props) {
-  return <section>{children}</section>;
+  return (
+    <section className="h-full flex justify-center items-center">
+      {children}
+    </section>
+  );
 }
