@@ -2,9 +2,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/authOptions";
 import { redirect } from "next/navigation";
 import MainPage from "@/components/MainPage";
-import { convertDateToYYYYMMDD } from "@/utilities/common";
-import { headers } from "next/headers";
+import { convertDateToYYYYMMDD, getStartEndDate } from "@/utilities/common";
 import Header from "@/components/Header";
+import { getRecordByDate } from "@/service/record";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -14,7 +14,7 @@ export default async function Home() {
     redirect("/signin");
   }
 
-  const { data, cachedKey } = await getInitialRecords();
+  const { data, cachedKey } = await getInitialRecords(user.id);
 
   return (
     <>
@@ -24,20 +24,11 @@ export default async function Home() {
   );
 }
 
-async function getInitialRecords() {
+async function getInitialRecords(userId: string) {
   const date: string = convertDateToYYYYMMDD(new Date());
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/records/${date}`,
-    {
-      method: "GET",
-      headers: headers(),
-    }
-  );
 
-  if (!res.ok) {
-    throw new Error("failed to initialRecords");
-  }
+  const { startDate, endDate } = getStartEndDate(date);
+  const data = await getRecordByDate(userId, startDate, endDate);
 
-  const data = await res.json();
   return { data, cachedKey: date };
 }
