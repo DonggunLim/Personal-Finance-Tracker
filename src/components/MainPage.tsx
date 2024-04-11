@@ -21,10 +21,11 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
   const { currentDate, handlePrevBtn, handleNextBtn } = useDateNavigation();
   const userData = useUserData();
   const {
-    records,
+    currentRecords,
     addNewFormRecordToPrevRecords,
     removeRecordsFromPrevRecords,
   } = useRecords(currentDate, initialRecords, cachedKey);
+
   return (
     <main className="max-w-[1280px] mx-auto px-4 grid grid-cols-[2fr_7fr_3fr] gap-16">
       <div className="mt-12">
@@ -39,16 +40,16 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
           addNewFormRecordToPrevRecords={addNewFormRecordToPrevRecords}
           removeRecordsFromPrevRecords={removeRecordsFromPrevRecords}
         />
-        <Records records={records} />
+        <Records records={currentRecords} />
       </div>
       <div className="flex flex-col gap-8 mt-12">
         <UserSetForm userData={userData} />
         <DailyLimitExceeds
-          records={records}
+          records={currentRecords}
           dailySpendingLimit={userData.dailySpendingLimit}
         />
-        <TagRank records={records} />
-        <ExpenditureRank records={records} />
+        <TagRank records={currentRecords} />
+        <ExpenditureRank records={currentRecords} />
       </div>
     </main>
   );

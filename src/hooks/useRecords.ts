@@ -1,18 +1,25 @@
 "use client";
 
-import { Record, convertDateToYYYYMMDD } from "@/utilities/common";
-import { useEffect, useState } from "react";
+import {
+  GroupedRecords,
+  Record,
+  convertDateToYYYYMMDD,
+} from "@/utilities/common";
+import { useEffect, useRef, useState } from "react";
 
 export const useRecords = (
   currentDate: Date,
   initialRecords: Record[],
   cachedKey: string
 ) => {
-  const [records, setRecords] = useState<Record[]>(initialRecords);
-  const currentKey = convertDateToYYYYMMDD(currentDate);
+  const currentKey = convertDateToYYYYMMDD(currentDate).slice(0, 7);
+  const [records, setRecords] = useState<GroupedRecords>({
+    [currentKey]: initialRecords,
+  });
+  const cachedKeyList = useRef<string[]>([]);
 
   useEffect(() => {
-    if (currentKey === cachedKey && records.length > 0) return;
+    if (cachedKeyList.current.includes(currentKey)) return;
     fetch(`/api/records/${convertDateToYYYYMMDD(currentDate)}`, {
       method: "GET",
       headers: {
@@ -20,20 +27,33 @@ export const useRecords = (
       },
     })
       .then((res) => res.json())
-      .then(setRecords)
+      .then((res) => {
+        setRecords((prev) => ({ ...prev, [currentKey]: res }));
+        cachedKeyList.current.push(currentKey);
+      })
       .catch((error) =>
         console.error("There was an error fetching record", error)
       );
-  }, [currentDate, cachedKey, currentKey, records.length]);
+  }, [currentDate, cachedKey, currentKey]);
 
-  const addNewFormRecordToPrevRecords = (record: Record) =>
-    setRecords((prev) => [...prev, { ...record, newAdded: true }]);
+  const addNewFormRecordToPrevRecords = (record: Record) => {
+    setRecords((prev) => {
+      const dateKey = record.date.slice(0, 7);
+      const recordsForDateKey = prev[dateKey] || [];
+      return { ...prev, [dateKey]: [...recordsForDateKey, record] };
+    });
+  };
 
-  const removeRecordsFromPrevRecords = () =>
-    setRecords((prev) => prev.filter((r) => r._id));
+  const removeRecordsFromPrevRecords = (record: Record) => {
+    setRecords((prev) => {
+      const dateKey = record.date.slice(0, 7);
+      const recordsForDateKey = prev[dateKey];
+      return { ...prev, [dateKey]: recordsForDateKey.filter((r) => r._id) };
+    });
+  };
 
   return {
-    records,
+    currentRecords: records[currentKey] || [],
     addNewFormRecordToPrevRecords,
     removeRecordsFromPrevRecords,
   };
