@@ -43,7 +43,7 @@ function FixedIncome({ IntialfixedIncome }: FixedIncomeProps) {
   }, [IntialfixedIncome]);
 
   return (
-    <form className="relative" onSubmit={handleSubmit}>
+    <form className="relative flex-1 h-full" onSubmit={handleSubmit}>
       {hasChanged && (
         <button className="text-xs absolute right-0 top-0 bg-purple-200 rounded-xl px-2 py-[1px]">
           저장
@@ -95,7 +95,7 @@ function DailySpendingLimit({
   }, [InitialdailySpendingLimit]);
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
+    <form onSubmit={handleSubmit} className="relative flex-1">
       {hasChanged && (
         <button className="text-xs absolute right-0 top-0 bg-purple-200 rounded-xl px-2 py-[1px]">
           저장

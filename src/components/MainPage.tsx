@@ -27,22 +27,22 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
   } = useRecords(currentDate, initialRecords, cachedKey);
 
   return (
-    <main className="max-w-[1280px] mx-auto px-4 grid grid-cols-[2fr_7fr_3fr] gap-16">
-      <div className="mt-12">
+    <main className="mt-12 max-w-[1280px] mx-auto px-4 grid grid-cols-1 xl:grid-cols-[2fr_7fr_3fr] gap-x-16">
+      <div className="order-1">
+        {/* <ExpenseForm
+          addNewFormRecordToPrevRecords={addNewFormRecordToPrevRecords}
+          removeRecordsFromPrevRecords={removeRecordsFromPrevRecords}
+        /> */}
+      </div>
+      <div className="order-3 xl:order-2">
         <SelectedMonth
           currentDate={currentDate}
           handlePrevBtn={handlePrevBtn}
           handleNextBtn={handleNextBtn}
         />
-      </div>
-      <div className="mt-12">
-        <ExpenseForm
-          addNewFormRecordToPrevRecords={addNewFormRecordToPrevRecords}
-          removeRecordsFromPrevRecords={removeRecordsFromPrevRecords}
-        />
         <Records records={currentRecords} />
       </div>
-      <div className="flex flex-col gap-8 mt-12">
+      <div className="grid gird-cols-1 md:max-xl:grid-cols-2 auto-rows-min gap-8 order-2 xl:order-3">
         <UserSetForm userData={userData} />
         <DailyLimitExceeds
           records={currentRecords}
