@@ -9,7 +9,7 @@ body {
 
 @layer components {
   .input {
-    @apply flex items-center justify-center bg-neutral-100 py-1 px-2 rounded-md;
+    @apply flex items-center justify-center py-1 px-2 rounded-md;
   }
 
   .box {
