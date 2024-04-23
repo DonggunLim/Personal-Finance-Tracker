@@ -43,13 +43,17 @@ export default function DropdownMenu({
 
   return (
     <div className="w-full relative">
-      <div className="w-full text-xs cursor-pointer">
+      <div
+        className={`w-full text-sm font-semibold opacity-40 hover:opacity-100 ${
+          selected !== placeholder && "opacity-100"
+        }`}
+      >
         <input
           onClick={toggleDropdown}
           onBlur={handleBlur}
           placeholder={selected}
           readOnly={isOpen}
-          className="w-full outline-none bg-neutral-100"
+          className="w-full outline-none cursor-pointer caret-transparent text-center"
         />
       </div>
       {isOpen && (

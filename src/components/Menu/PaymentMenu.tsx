@@ -16,7 +16,7 @@ export default function PaymentMenu({ handleChange }: Props) {
   ];
 
   return (
-    <div className="flex justify-start bg-neutral-100 py-1 px-2 rounded-md w-20">
+    <div className="flex justify-start py-1 px-2 rounded-md w-20">
       <DropdownMenu
         items={items}
         placeholder="지불방식"
