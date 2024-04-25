@@ -18,7 +18,11 @@ const MONTH = [
   "12월",
 ];
 
-export default function Calendar() {
+type Props = {
+  onClick: (date: string) => void;
+};
+
+export default function Calendar({ onClick }: Props) {
   const {
     today,
     currentDate,
@@ -68,7 +72,10 @@ export default function Calendar() {
                 : ""
             }
             `}
-                onClick={() => handleClickDate(date)}
+                onClick={() => {
+                  handleClickDate(date);
+                  onClick(date.format("YYYY-MM-DD"));
+                }}
               >
                 <p
                   className={`text-sm font-bold ${

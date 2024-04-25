@@ -40,7 +40,6 @@ export default function DropdownMenu({
     handleChange(e, fieldName);
     setIsOpen(false);
   };
-  console.log(selected, placeholder);
   return (
     <div className="w-full relative">
       <div
