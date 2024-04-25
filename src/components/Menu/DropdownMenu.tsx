@@ -40,12 +40,12 @@ export default function DropdownMenu({
     handleChange(e, fieldName);
     setIsOpen(false);
   };
-
+  console.log(selected, placeholder);
   return (
     <div className="w-full relative">
       <div
-        className={`w-full text-sm font-semibold opacity-40 hover:opacity-100 ${
-          selected !== placeholder && "opacity-100"
+        className={`w-full text-sm font-semibold hover:opacity-100 ${
+          selected === placeholder ? "opacity-40" : "opacity-100"
         }`}
       >
         <input
