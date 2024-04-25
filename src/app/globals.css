@@ -7,6 +7,14 @@ body {
   background-color: rgb(245, 245, 247);
 }
 
+[contenteditable][data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: rgb(209, 213, 219);
+  cursor: text;
+  pointer-events: none;
+  font-weight: 600;
+}
+
 @layer components {
   .input {
     @apply flex items-center justify-center py-1 px-2 rounded-md outline-none;
