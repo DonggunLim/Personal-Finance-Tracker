@@ -8,19 +8,14 @@ type Props = {
   items: MenuItem[];
   placeholder: string;
   fieldName: string;
-  handleChange: (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.MouseEvent<HTMLButtonElement>,
-    fieldName: string
-  ) => void;
+  onChange: (value: string, fieldName: string) => void;
 };
 
 export default function DropdownMenu({
   items,
   placeholder,
   fieldName,
-  handleChange,
+  onChange,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(placeholder);
@@ -36,8 +31,9 @@ export default function DropdownMenu({
     setIsOpen(false);
   };
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelected(e.currentTarget.dataset.title || "");
-    handleChange(e, fieldName);
+    const value = e.currentTarget.dataset.title || "";
+    setSelected(value);
+    onChange(value, fieldName);
     setIsOpen(false);
   };
   return (

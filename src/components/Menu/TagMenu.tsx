@@ -1,15 +1,10 @@
 import DropdownMenu from "./DropdownMenu";
 
 type Props = {
-  handleChange: (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.MouseEvent<HTMLButtonElement>,
-    fieldName: string
-  ) => void;
+  onChange: (value: string, fieldName: string) => void;
 };
 
-export default function TagMenu({ handleChange }: Props) {
+export default function TagMenu({ onChange }: Props) {
   const items = [
     { icon: "🍲", title: "음식" },
     { icon: "🛍️", title: "쇼핑" },
@@ -35,7 +30,7 @@ export default function TagMenu({ handleChange }: Props) {
         items={items}
         placeholder="태그"
         fieldName="tag"
-        handleChange={handleChange}
+        onChange={onChange}
       />
     </div>
   );

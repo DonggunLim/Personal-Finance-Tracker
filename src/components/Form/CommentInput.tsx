@@ -1,11 +1,13 @@
 import { useState } from "react";
 import CommonContentEditable from "../common/CommonContentEditable";
-
-export default function CommentInput() {
-  const [text, setText] = useState<string>();
+type Props = {
+  onChange: (value: string, fieldName: string) => void;
+};
+export default function CommentInput({ onChange }: Props) {
   const handleChange = (text: string) => {
-    setText(text);
+    onChange(text, "description");
   };
+
   return (
     <CommonContentEditable
       className={`outline-none box-border max-w-60 min-h-32`}

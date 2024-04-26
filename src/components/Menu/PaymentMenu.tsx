@@ -1,15 +1,10 @@
 import DropdownMenu from "./DropdownMenu";
 
 type Props = {
-  handleChange: (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.MouseEvent<HTMLButtonElement>,
-    fieldName: string
-  ) => void;
+  onChange: (value: string, fieldName: string) => void;
 };
 
-export default function PaymentMenu({ handleChange }: Props) {
+export default function PaymentMenu({ onChange }: Props) {
   const items = [
     { icon: "💰", title: "현금" },
     { icon: "💳", title: "카드" },
@@ -21,7 +16,7 @@ export default function PaymentMenu({ handleChange }: Props) {
         items={items}
         placeholder="지불방식"
         fieldName="paymentMethod"
-        handleChange={handleChange}
+        onChange={onChange}
       />
     </div>
   );

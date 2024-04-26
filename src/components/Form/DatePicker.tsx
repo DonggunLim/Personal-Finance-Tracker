@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Calendar from "../Calendar";
 import CalendarIcon from "../Icons/CalendarIcon";
+import { FormEvent } from "../ExpenseForm";
 
-export default function DatePicker() {
+type Props = {
+  onChange: (value: string, fieldName: string) => void;
+};
+
+export default function DatePicker({ onChange }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>();
   const labelRef = useRef<HTMLLabelElement>(null);
@@ -13,9 +18,10 @@ export default function DatePicker() {
     }
   };
 
-  const handleClickDate = (date: string) => {
-    setSelected(date);
+  const handleClickDate = (value: string) => {
+    setSelected(value);
     setIsOpen(false);
+    onChange(value, "date");
   };
 
   useEffect(() => {
