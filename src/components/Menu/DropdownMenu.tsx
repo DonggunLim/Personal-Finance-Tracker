@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FormDataKeys } from "../ExpenseFormModal";
 
 type MenuItem = { icon: string; title: string };
 
@@ -8,7 +9,7 @@ type Props = {
   items: MenuItem[];
   placeholder: string;
   fieldName: string;
-  onChange: (value: string, fieldName: string) => void;
+  onChange: (value: string, fieldName: FormDataKeys) => void;
 };
 
 export default function DropdownMenu({
@@ -33,7 +34,7 @@ export default function DropdownMenu({
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.dataset.title || "";
     setSelected(value);
-    onChange(value, fieldName);
+    onChange(value, fieldName as FormDataKeys);
     setIsOpen(false);
   };
   return (

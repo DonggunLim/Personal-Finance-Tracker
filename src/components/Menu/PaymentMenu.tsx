@@ -1,7 +1,8 @@
+import { FormDataKeys } from "../ExpenseFormModal";
 import DropdownMenu from "./DropdownMenu";
 
 type Props = {
-  onChange: (value: string, fieldName: string) => void;
+  onChange: (value: string, fieldName: FormDataKeys) => void;
 };
 
 export default function PaymentMenu({ onChange }: Props) {

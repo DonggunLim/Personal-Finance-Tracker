@@ -6,7 +6,7 @@ type Props = {
 
 export default function AddIconButton({ size = "medium" }: Props) {
   return (
-    <button className="bg-purple-100 rounded-lg p-1 hover:bg-purple-200">
+    <button className="bg-purple-100 rounded-md shadow-md p-1 hover:bg-purple-200">
       <IoAddOutline className={getSize(size)} />
     </button>
   );

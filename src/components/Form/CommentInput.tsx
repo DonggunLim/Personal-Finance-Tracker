@@ -1,7 +1,7 @@
-import { useState } from "react";
 import CommonContentEditable from "../common/CommonContentEditable";
+import { FormDataKeys } from "../ExpenseFormModal";
 type Props = {
-  onChange: (value: string, fieldName: string) => void;
+  onChange: (value: string, fieldName: FormDataKeys) => void;
 };
 export default function CommentInput({ onChange }: Props) {
   const handleChange = (text: string) => {

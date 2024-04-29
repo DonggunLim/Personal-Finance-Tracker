@@ -1,8 +1,9 @@
 import { formatPriceToCurrency } from "@/utilities/common";
 import { useState } from "react";
+import { FormDataKeys } from "../ExpenseFormModal";
 
 type Props = {
-  onChange: (value: string, fieldName: string) => void;
+  onChange: (value: string, fieldName: FormDataKeys) => void;
 };
 
 export default function PriceInput({ onChange }: Props) {
@@ -16,10 +17,10 @@ export default function PriceInput({ onChange }: Props) {
   };
 
   return (
-    <label className="flex items-center">
-      <div className="flex items-center text-sm font-semibold max-w-[180px]">
+    <label>
+      <div className="flex items-center px-2">
         <input
-          className="w-full outline-none cursor-pointer text-right"
+          className="w-full outline-none cursor-pointer text-lg font-semibold text-right "
           placeholder="0"
           value={formatPriceToCurrency(price)}
           onChange={handleChange}

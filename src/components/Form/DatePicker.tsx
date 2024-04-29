@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Calendar from "../Calendar";
 import CalendarIcon from "../Icons/CalendarIcon";
-import { FormEvent } from "../ExpenseForm";
+import { FormDataKeys } from "../ExpenseFormModal";
 
 type Props = {
-  onChange: (value: string, fieldName: string) => void;
+  onChange: (value: string, fieldName: FormDataKeys) => void;
 };
 
 export default function DatePicker({ onChange }: Props) {

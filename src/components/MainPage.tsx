@@ -1,6 +1,5 @@
 "use client";
 
-import ExpenseForm from "./ExpenseForm";
 import Records from "./Records";
 import TagRank from "./TagRank";
 import UserSetForm from "./UserSetForm";
@@ -11,6 +10,8 @@ import SelectedMonth from "./SelectedMonth";
 import { useDateNavigation } from "@/hooks/useDateNavigation";
 import { useUserData } from "@/hooks/useUserData";
 import { useRecords } from "@/hooks/useRecords";
+import AddIconButton from "./Buttons/AddIconButton";
+import FormFloatingButton from "./Buttons/FormFloatingButton";
 
 type Props = {
   initialRecords: Record[];
@@ -27,13 +28,8 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
   } = useRecords(currentDate, initialRecords, cachedKey);
 
   return (
-    <main className="mt-12 max-w-[1280px] mx-auto px-4 grid grid-cols-1 xl:grid-cols-[2fr_7fr_3fr] gap-x-16">
-      <div className="order-1">
-        {/* <ExpenseForm
-          addNewFormRecordToPrevRecords={addNewFormRecordToPrevRecords}
-          removeRecordsFromPrevRecords={removeRecordsFromPrevRecords}
-        /> */}
-      </div>
+    <main className="relative mt-12 max-w-[1280px] mx-auto px-4 grid grid-cols-1 xl:grid-cols-[2fr_7fr_3fr] gap-x-16">
+      <div className=""></div>
       <div className="order-3 xl:order-2">
         <SelectedMonth
           currentDate={currentDate}
@@ -43,6 +39,10 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
         <Records records={currentRecords} />
       </div>
       <div className="grid gird-cols-1 md:max-xl:grid-cols-2 auto-rows-min gap-8 order-2 xl:order-3">
+        <FormFloatingButton
+          addNewFormRecordToPrevRecords={addNewFormRecordToPrevRecords}
+          removeRecordsFromPrevRecords={removeRecordsFromPrevRecords}
+        />
         <UserSetForm userData={userData} />
         <DailyLimitExceeds
           records={currentRecords}
