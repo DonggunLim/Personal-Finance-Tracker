@@ -20,10 +20,9 @@ export default function ChartPage() {
     dailySpendingLimit: "",
   });
 
-  const handleDateInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => setPeriod((prev) => ({ ...prev, [type]: e.target.value }));
+  const handleStartDate = (startDate: string) =>
+    setPeriod({ ...period, startDate });
+  const handleEndDate = (endDate: string) => setPeriod({ ...period, endDate });
 
   useEffect(() => {
     if (!period.endDate || !period.startDate) return;
@@ -43,12 +42,15 @@ export default function ChartPage() {
     }) //
       .then((res) => res.json())
       .then((res) => setUserdata(res[0]));
-  }, [period]);
+  }, [period.startDate, period.endDate]);
 
   return (
     <main className="max-w-5xl mx-auto px-4 gap-16 grid grid-cols-[7fr_2fr]">
       <div className="mt-12">
-        <PeriodSelector onChange={handleDateInputChange} />
+        <PeriodSelector
+          handleStartDate={handleStartDate}
+          handleEndDate={handleEndDate}
+        />
         <Records records={records} />
       </div>
       <div>
