@@ -36,26 +36,27 @@ export default function ChartPage() {
       .then((res) => res.json())
       .then(setRecords)
       .catch((error) => console.error("There was an error!", error));
+  }, [period.startDate, period.endDate]);
 
+  useEffect(() => {
     fetch("/api/user", {
       method: "GET",
     }) //
       .then((res) => res.json())
       .then((res) => setUserdata(res[0]));
-  }, [period.startDate, period.endDate]);
+  }, []);
 
   return (
-    <main className="max-w-5xl mx-auto px-4 gap-16 grid grid-cols-[7fr_2fr]">
+    <main className="max-w-7xl mx-auto px-4 flex flex-col gap-4">
       <div className="mt-12">
         <PeriodSelector
           handleStartDate={handleStartDate}
           handleEndDate={handleEndDate}
         />
-        <Records records={records} />
       </div>
-      <div>
+      <div className="w-fit">
         {records.length > 0 && (
-          <div className="box flex flex-col gap-8 mt-12 sticky top-24">
+          <div className="box flex">
             <ExpenditureTrendChart
               records={records}
               dailySpendingLimit={userData.dailySpendingLimit}
@@ -63,6 +64,9 @@ export default function ChartPage() {
             <TagRatioTrendChart records={records} />
           </div>
         )}
+      </div>
+      <div>
+        <Records records={records} />
       </div>
     </main>
   );
