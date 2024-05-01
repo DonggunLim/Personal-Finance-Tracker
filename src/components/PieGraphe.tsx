@@ -62,11 +62,11 @@ export default function PieGraphe({ data }: Props) {
   const customizedLabel = renderLabel(data);
 
   return (
-    <PieChart width={330} height={330}>
+    <PieChart width={300} height={200}>
       <Pie
         data={data}
-        cx={165}
-        cy={165}
+        cx={150}
+        cy={100}
         labelLine={false}
         label={customizedLabel}
         outerRadius={80}

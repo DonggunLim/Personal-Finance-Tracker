@@ -54,17 +54,19 @@ export default function ChartPage() {
           handleEndDate={handleEndDate}
         />
       </div>
-      <div className="w-fit">
-        {records.length > 0 && (
-          <div className="box flex">
+      {records.length > 0 && (
+        <div className="w-full flex flex-wrap gap-2">
+          <div className="box w-fit">
             <ExpenditureTrendChart
               records={records}
               dailySpendingLimit={userData.dailySpendingLimit}
             />
+          </div>
+          <div className="box w-fit">
             <TagRatioTrendChart records={records} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div>
         <Records records={records} />
       </div>

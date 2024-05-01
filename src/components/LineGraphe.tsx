@@ -25,7 +25,7 @@ type CustomTooltipExtends = TooltipProps<ValueType, NameType> & {
 
 export default function LineGraphe({ data, dailySpendingLimit }: Props) {
   return (
-    <LineChart width={330} height={200} data={data}>
+    <LineChart width={300} height={200} data={data}>
       <ReferenceLine
         y={parseInt(dailySpendingLimit)}
         label="Max"
