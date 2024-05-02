@@ -55,6 +55,9 @@ export default function TagRank({ records }: Props) {
             </div>
           </li>
         ))}
+        {rankByTag.length === 0 && (
+          <p className="text-sm font-bold text-gray-200">기록이 부족합니다.</p>
+        )}
       </ul>
     </div>
   );
