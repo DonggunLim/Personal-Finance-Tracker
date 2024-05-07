@@ -7,6 +7,7 @@ import PriceInput from "./Form/PriceInput";
 import DatePicker from "./Form/DatePicker";
 import CommentInput from "./Form/CommentInput";
 import { Record } from "@/utilities/common";
+import SyncSpinner from "./Spinners/SyncSpinner";
 
 type Props = {
   onClose: () => void;
@@ -31,6 +32,7 @@ export default function ExpenseFormModal({
   removeRecordsFromPrevRecords,
 }: Props) {
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [isLoading, setIsLoading] = useState(false);
   const handleChange = (value: string, fieldName: FormDataKeys) => {
     setFormData((prev) => ({
       ...prev,
@@ -39,13 +41,15 @@ export default function ExpenseFormModal({
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addNewFormRecordToPrevRecords(formData);
+    setIsLoading(true);
     fetch("/api/records", {
       method: "POST",
       body: JSON.stringify(formData),
     }) //
       .then((res) => {
-        if (res.ok) console.log("formSubmit complited");
+        if (res.ok) {
+          addNewFormRecordToPrevRecords(formData);
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -53,6 +57,8 @@ export default function ExpenseFormModal({
       })
       .finally(() => {
         setFormData(initialFormData);
+        setIsLoading(false);
+        onClose();
       });
   };
 
@@ -70,7 +76,7 @@ export default function ExpenseFormModal({
             <PriceInput onChange={handleChange} />
             <CommentInput onChange={handleChange} />
             <button className="text-sm font-bold hover:text-purple-200">
-              저장하기
+              {isLoading ? <SyncSpinner /> : "저장하기"}
             </button>
           </form>
         </div>
