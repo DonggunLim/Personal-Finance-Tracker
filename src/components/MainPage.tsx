@@ -10,7 +10,6 @@ import SelectedMonth from "./SelectedMonth";
 import { useDateNavigation } from "@/hooks/useDateNavigation";
 import { useUserData } from "@/hooks/useUserData";
 import { useRecords } from "@/hooks/useRecords";
-import AddIconButton from "./Buttons/AddIconButton";
 import FormFloatingButton from "./Buttons/FormFloatingButton";
 
 type Props = {
