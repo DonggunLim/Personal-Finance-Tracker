@@ -3,9 +3,10 @@ import DropdownMenu from "./DropdownMenu";
 
 type Props = {
   onChange: (value: string, fieldName: FormDataKeys) => void;
+  initialValue?: string;
 };
 
-export default function TagMenu({ onChange }: Props) {
+export default function TagMenu({ onChange, initialValue }: Props) {
   const items = [
     { icon: "🍲", title: "음식" },
     { icon: "🛍️", title: "쇼핑" },
@@ -32,6 +33,7 @@ export default function TagMenu({ onChange }: Props) {
         placeholder="태그"
         fieldName="tag"
         onChange={onChange}
+        initialValue={initialValue}
       />
     </div>
   );

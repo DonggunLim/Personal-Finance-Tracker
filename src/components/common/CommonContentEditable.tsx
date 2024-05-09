@@ -4,12 +4,14 @@ type Props = {
   className: string;
   placeholder?: string;
   onChange: (text: string) => void;
+  initialValue?: string;
 };
 
 export default function CommonContentEditable({
   className,
   placeholder = "입력",
   onChange,
+  initialValue,
 }: Props) {
   const $editableRef = useRef<HTMLDivElement>(null);
   const handleInput = (e: React.ChangeEvent<HTMLDivElement>) => {
@@ -24,10 +26,13 @@ export default function CommonContentEditable({
   };
 
   useEffect(() => {
-    if ($editableRef.current) {
+    if (!$editableRef.current) return;
+    if (initialValue) {
+      $editableRef.current.innerText = initialValue;
+    } else {
       $editableRef.current.setAttribute("data-placeholder", placeholder);
     }
-  }, [placeholder]);
+  }, [placeholder, initialValue]);
 
   return (
     <div

@@ -5,11 +5,12 @@ import { FormDataKeys } from "../ExpenseFormModal";
 
 type Props = {
   onChange: (value: string, fieldName: "date") => void;
+  initialValue?: string;
 };
 
-export default function DatePicker({ onChange }: Props) {
+export default function DatePicker({ onChange, initialValue }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>(initialValue || "");
   const labelRef = useRef<HTMLLabelElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {

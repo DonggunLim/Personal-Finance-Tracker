@@ -69,12 +69,21 @@ export default function ExpenseFormModal({
           <CloseButton onClose={onClose} />
           <form className="flex flex-col gap-y-6" onSubmit={handleSubmit}>
             <div className="flex justify-around">
-              <DatePicker onChange={handleChange} />
-              <PaymentMenu onChange={handleChange} />
-              <TagMenu onChange={handleChange} />
+              <DatePicker
+                onChange={handleChange}
+                initialValue={formData.date}
+              />
+              <PaymentMenu
+                onChange={handleChange}
+                initialValue={formData.paymentMethod}
+              />
+              <TagMenu onChange={handleChange} initialValue={formData.tag} />
             </div>
-            <PriceInput onChange={handleChange} />
-            <CommentInput onChange={handleChange} />
+            <PriceInput onChange={handleChange} initialValue={formData.price} />
+            <CommentInput
+              onChange={handleChange}
+              initialValue={formData.description}
+            />
             <button className="text-sm font-bold hover:text-purple-200">
               {isLoading ? <SyncSpinner /> : "저장하기"}
             </button>

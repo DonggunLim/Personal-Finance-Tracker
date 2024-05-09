@@ -4,10 +4,11 @@ import { FormDataKeys } from "../ExpenseFormModal";
 
 type Props = {
   onChange: (value: string, fieldName: FormDataKeys) => void;
+  initialValue?: string;
 };
 
-export default function PriceInput({ onChange }: Props) {
-  const [price, setPrice] = useState("");
+export default function PriceInput({ onChange, initialValue }: Props) {
+  const [price, setPrice] = useState(initialValue || "");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");

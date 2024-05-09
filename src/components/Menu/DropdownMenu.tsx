@@ -10,6 +10,7 @@ type Props = {
   placeholder: string;
   fieldName: string;
   onChange: (value: string, fieldName: FormDataKeys) => void;
+  initialValue?: string;
 };
 
 export default function DropdownMenu({
@@ -17,9 +18,10 @@ export default function DropdownMenu({
   placeholder,
   fieldName,
   onChange,
+  initialValue,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(placeholder);
+  const [selected, setSelected] = useState(initialValue || placeholder);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {

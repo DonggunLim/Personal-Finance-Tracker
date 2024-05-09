@@ -2,8 +2,9 @@ import CommonContentEditable from "../common/CommonContentEditable";
 import { FormDataKeys } from "../ExpenseFormModal";
 type Props = {
   onChange: (value: string, fieldName: FormDataKeys) => void;
+  initialValue?: string;
 };
-export default function CommentInput({ onChange }: Props) {
+export default function CommentInput({ onChange, initialValue }: Props) {
   const handleChange = (text: string) => {
     onChange(text, "description");
   };
@@ -13,6 +14,7 @@ export default function CommentInput({ onChange }: Props) {
       className={`outline-none box-border max-w-60 min-h-32`}
       placeholder="코멘트는 생략 가능합니다."
       onChange={handleChange}
+      initialValue={initialValue}
     />
   );
 }
