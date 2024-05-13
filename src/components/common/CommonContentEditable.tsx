@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 
 type Props = {
   className: string;
@@ -7,12 +7,13 @@ type Props = {
   initialValue?: string;
 };
 
-export default function CommonContentEditable({
+export default memo(function CommonContentEditable({
   className,
   placeholder = "입력",
   onChange,
   initialValue,
 }: Props) {
+  const $initialValueRef = useRef(initialValue);
   const $editableRef = useRef<HTMLDivElement>(null);
   const handleInput = (e: React.ChangeEvent<HTMLDivElement>) => {
     const text = e.target.innerText;
@@ -27,12 +28,15 @@ export default function CommonContentEditable({
 
   useEffect(() => {
     if (!$editableRef.current) return;
-    if (initialValue) {
-      $editableRef.current.innerText = initialValue;
-    } else {
-      $editableRef.current.setAttribute("data-placeholder", placeholder);
+    $editableRef.current.setAttribute("data-placeholder", placeholder);
+  }, [placeholder]);
+
+  useEffect(() => {
+    if (!$editableRef.current) return;
+    if ($initialValueRef.current && $editableRef.current.innerText === "") {
+      $editableRef.current.innerText = $initialValueRef.current;
     }
-  }, [placeholder, initialValue]);
+  }, []);
 
   return (
     <div
@@ -43,4 +47,4 @@ export default function CommonContentEditable({
       data-placeholder={placeholder}
     />
   );
-}
+});
