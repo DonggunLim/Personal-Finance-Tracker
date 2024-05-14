@@ -1,7 +1,7 @@
-import { ExpenseFormData } from "@/components/ExpenseForm";
 import { client } from "./sanity";
+import { FormData } from "@/components/ExpenseFormModal";
 
-export const AddRecord = (userId: string, formData: ExpenseFormData) => {
+export const AddRecord = (userId: string, formData: FormData) => {
   const { date, price, paymentMethod, tag, description } = formData;
   return client //
     .create(
@@ -39,4 +39,11 @@ export const getRecordByDate = (
 
   return client //
     .fetch(query);
+};
+
+export const updateRecord = (id: string, formdata: FormData) => {
+  return client //
+    .patch(id)
+    .set(formdata)
+    .commit();
 };
