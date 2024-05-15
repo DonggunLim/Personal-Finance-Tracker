@@ -179,7 +179,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
           >
             <div className="bg-white rounded-md p-8 relative">
               <CloseIcon
-                className="absolute top-1 right-1"
+                className="absolute top-1 right-1 cursor-pointer"
                 onClose={() => setIsDeleted(false)}
               />
               <div className="w-72 flex flex-col items-center gap-y-4">

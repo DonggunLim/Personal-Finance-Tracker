@@ -12,9 +12,9 @@ export default function CloseIcon({
   size = "small",
 }: Props) {
   return (
-    <button className={className} onClick={onClose}>
+    <div className={className} onClick={onClose}>
       <CgClose className={getSize(size)} />
-    </button>
+    </div>
   );
 }
 
