@@ -47,3 +47,8 @@ export const updateRecord = (id: string, formdata: FormData) => {
     .set(formdata)
     .commit();
 };
+
+export const deleteReocrd = (id: string) => {
+  return client //
+    .delete(id);
+};
