@@ -4,14 +4,11 @@ import { useState } from "react";
 import ExpenseFormModal, { FormData } from "../ExpenseFormModal";
 import AddIconButton from "./AddIconButton";
 import { Record } from "@/utilities/common";
+import { RecordActionType } from "@/hooks/useRecords";
 type Props = {
-  addNewFormRecordToPrevRecords: (Record: Record) => void;
-  removeRecordsFromPrevRecords: (Record: Record) => void;
+  manageRecord: (record: Record, action: RecordActionType) => void;
 };
-export default function FormFloatingButton({
-  addNewFormRecordToPrevRecords,
-  removeRecordsFromPrevRecords,
-}: Props) {
+export default function FormFloatingButton({ manageRecord }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const handleAddReocrdSubmit = (formData: FormData) => {
@@ -21,12 +18,12 @@ export default function FormFloatingButton({
     }) //
       .then((res) => {
         if (res.ok) {
-          addNewFormRecordToPrevRecords(formData);
+          manageRecord(formData, "add");
         }
       })
       .catch((error) => {
         console.error(error);
-        removeRecordsFromPrevRecords(formData);
+        manageRecord(formData, "delete");
       })
       .finally(() => {
         onClose();

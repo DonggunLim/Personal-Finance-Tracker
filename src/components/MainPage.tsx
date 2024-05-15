@@ -20,12 +20,11 @@ type Props = {
 export default function MainPage({ initialRecords, cachedKey }: Props) {
   const { currentDate, handlePrevBtn, handleNextBtn } = useDateNavigation();
   const userData = useUserData();
-  const {
-    currentRecords,
-    addNewFormRecordToPrevRecords,
-    removeRecordsFromPrevRecords,
-  } = useRecords(currentDate, initialRecords, cachedKey);
-
+  const { currentRecords, manageRecord } = useRecords(
+    currentDate,
+    initialRecords,
+    cachedKey
+  );
   return (
     <main className="relative mt-12 max-w-[1280px] mx-auto px-4 grid grid-cols-1 xl:grid-cols-[2fr_7fr_3fr] gap-x-16">
       <div className=""></div>
@@ -35,13 +34,10 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
           handlePrevBtn={handlePrevBtn}
           handleNextBtn={handleNextBtn}
         />
-        <Records records={currentRecords} />
+        <Records records={currentRecords} manageRecord={manageRecord} />
       </div>
       <div className="grid gird-cols-1 md:max-xl:grid-cols-2 auto-rows-min gap-8 order-2 xl:order-3">
-        <FormFloatingButton
-          addNewFormRecordToPrevRecords={addNewFormRecordToPrevRecords}
-          removeRecordsFromPrevRecords={removeRecordsFromPrevRecords}
-        />
+        <FormFloatingButton manageRecord={manageRecord} />
         <UserSetForm userData={userData} />
         <DailyLimitExceeds
           records={currentRecords}

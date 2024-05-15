@@ -7,6 +7,8 @@ import {
 } from "@/utilities/common";
 import { useEffect, useRef, useState } from "react";
 
+export type RecordActionType = "delete" | "update" | "add";
+
 export const useRecords = (
   currentDate: Date,
   initialRecords: Record[],
@@ -36,25 +38,35 @@ export const useRecords = (
       );
   }, [currentDate, cachedKey, currentKey]);
 
-  const addNewFormRecordToPrevRecords = (record: Record) => {
+  const manageRecord = (record: Record, action: RecordActionType) => {
     setRecords((prev) => {
       const dateKey = record.date.slice(0, 7);
       const recordsForDateKey = prev[dateKey] || [];
-      return { ...prev, [dateKey]: [...recordsForDateKey, record] };
+      switch (action) {
+        case "add": {
+          return { ...prev, [dateKey]: [...recordsForDateKey, record] };
+        }
+
+        case "delete": {
+          return {
+            ...prev,
+            [dateKey]: recordsForDateKey.filter((r) => r._id !== record._id),
+          };
+        }
+
+        case "update": {
+          return {
+            ...prev,
+            [dateKey]: recordsForDateKey.map((r) =>
+              r._id === record._id ? record : r
+            ),
+          };
+        }
+      }
     });
   };
-
-  const removeRecordsFromPrevRecords = (record: Record) => {
-    setRecords((prev) => {
-      const dateKey = record.date.slice(0, 7);
-      const recordsForDateKey = prev[dateKey];
-      return { ...prev, [dateKey]: recordsForDateKey.filter((r) => r._id) };
-    });
-  };
-
   return {
     currentRecords: records[currentKey] || [],
-    addNewFormRecordToPrevRecords,
-    removeRecordsFromPrevRecords,
+    manageRecord,
   };
 };

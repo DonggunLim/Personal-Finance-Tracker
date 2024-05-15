@@ -3,12 +3,14 @@
 import { GroupedRecords, Record, groupRecordsByDate } from "@/utilities/common";
 import { useEffect, useState } from "react";
 import RecordCard from "./RecordCard";
+import { RecordActionType } from "@/hooks/useRecords";
 
 type Props = {
   records: Record[];
+  manageRecord: (record: Record, action: RecordActionType) => void;
 };
 
-export default function Records({ records }: Props) {
+export default function Records({ records, manageRecord }: Props) {
   const [groupedRecords, setGroupedRecords] = useState<GroupedRecords>({});
 
   useEffect(() => {
@@ -35,7 +37,11 @@ export default function Records({ records }: Props) {
             <div>
               <h1 className="text-lg font-bold">{date}</h1>
               {recordsForDate.map((record, index) => (
-                <RecordCard key={index} record={record} />
+                <RecordCard
+                  key={index}
+                  record={record}
+                  manageRecord={manageRecord}
+                />
               ))}
             </div>
           </div>
