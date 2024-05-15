@@ -12,8 +12,7 @@ import SyncSpinner from "./Spinners/SyncSpinner";
 type Props = {
   onClose: () => void;
   initialFormData?: FormData;
-  addNewFormRecordToPrevRecords: (Record: Record) => void;
-  removeRecordsFromPrevRecords: (Record: Record) => void;
+  onSubmit: (formData: FormData) => void;
 };
 
 export type FormData = Omit<Record, "_id">;
@@ -28,8 +27,7 @@ export default function ExpenseFormModal({
     tag: "",
     description: "",
   },
-  addNewFormRecordToPrevRecords,
-  removeRecordsFromPrevRecords,
+  onSubmit,
 }: Props) {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,25 +39,7 @@ export default function ExpenseFormModal({
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    fetch("/api/records", {
-      method: "POST",
-      body: JSON.stringify(formData),
-    }) //
-      .then((res) => {
-        if (res.ok) {
-          addNewFormRecordToPrevRecords(formData);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        removeRecordsFromPrevRecords(formData);
-      })
-      .finally(() => {
-        setFormData(initialFormData);
-        setIsLoading(false);
-        onClose();
-      });
+    onSubmit(formData);
   };
 
   return (
