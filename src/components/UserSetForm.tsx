@@ -9,7 +9,6 @@ type Props = {
 
 export default function UserSetForm({ userData }: Props) {
   const handleSubmit = (title: string, data: string) => {
-    console.log({ title, data }, "submit");
     fetch("/api/user", {
       method: "POST",
       body: JSON.stringify({
