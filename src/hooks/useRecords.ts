@@ -16,12 +16,18 @@ export const useRecords = (
 ) => {
   const currentKey = convertDateToYYYYMMDD(currentDate).slice(0, 7);
   const [records, setRecords] = useState<GroupedRecords>({
-    [currentKey]: initialRecords,
+    [cachedKey]: initialRecords,
   });
-  const cachedKeyList = useRef<string[]>([]);
+  const cachedKeyList = useRef<string[]>([cachedKey]);
 
   useEffect(() => {
-    if (cachedKeyList.current.includes(currentKey)) return;
+    console.log(cachedKeyList.current);
+    console.log({ currentKey });
+    if (cachedKeyList.current.includes(currentKey)) {
+      console.log(`Using cached records for key: ${currentKey}`);
+      return;
+    }
+    console.log(`Fetching records for key: ${currentKey}`);
     fetch(`/api/records/${convertDateToYYYYMMDD(currentDate)}`, {
       method: "GET",
       headers: {
@@ -34,9 +40,12 @@ export const useRecords = (
         cachedKeyList.current.push(currentKey);
       })
       .catch((error) =>
-        console.error("There was an error fetching record", error)
+        console.error(
+          `There was an error fetching record in ${currentKey}`,
+          error
+        )
       );
-  }, [currentDate, cachedKey, currentKey]);
+  }, [currentDate, currentKey]);
 
   const manageRecord = (record: Record, action: RecordActionType) => {
     setRecords((prev) => {

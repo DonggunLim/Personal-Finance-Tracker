@@ -25,7 +25,7 @@ export default async function Home() {
 }
 
 async function getInitialRecords(userId: string) {
-  const date: string = convertDateToYYYYMMDD(new Date());
+  const date: string = convertDateToYYYYMMDD(new Date()).slice(0, 7);
 
   const { startDate, endDate } = getStartEndDate(date);
   const data = await getRecordByDate(userId, startDate, endDate);
