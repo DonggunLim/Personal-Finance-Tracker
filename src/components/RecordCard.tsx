@@ -2,7 +2,7 @@ import { Record, formatPriceToCurrency } from "@/utilities/common";
 import { useEffect, useRef, useState } from "react";
 import CloseIcon from "./Icons/CloseIcon";
 import { LiaEdit } from "react-icons/lia";
-import Popover from "./common/Popover";
+import Popover from "./UI/Popover";
 import ExpenseFormModal, { FormData } from "./ExpenseFormModal";
 import CommonModal from "./common/CommonModal";
 import { RecordActionType } from "@/hooks/useRecords";

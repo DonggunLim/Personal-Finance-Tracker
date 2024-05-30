@@ -16,13 +16,11 @@ export const useRecords = (
 ) => {
   const currentKey = convertDateToYYYYMMDD(currentDate).slice(0, 7);
   const [records, setRecords] = useState<GroupedRecords>({
-    [cachedKey]: initialRecords,
+    [currentKey]: initialRecords,
   });
   const cachedKeyList = useRef<string[]>([cachedKey]);
 
   useEffect(() => {
-    console.log(cachedKeyList.current);
-    console.log({ currentKey });
     if (cachedKeyList.current.includes(currentKey)) {
       console.log(`Using cached records for key: ${currentKey}`);
       return;
