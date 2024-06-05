@@ -1,5 +1,5 @@
 import { Record, formatPriceToCurrency } from "@/utilities/common";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import CloseIcon from "./Icons/CloseIcon";
 import { LiaEdit } from "react-icons/lia";
 import Popover from "./UI/Popover";
@@ -40,7 +40,6 @@ export default function RecordCard({ record, manageRecord }: Props) {
   const [isPopoverShown, setIsPopoverShown] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
-
   const { price, description, paymentMethod, tag } = record;
   const payment_icon = paymentItems.filter((i) => i.title == paymentMethod)[0]
     .icon;

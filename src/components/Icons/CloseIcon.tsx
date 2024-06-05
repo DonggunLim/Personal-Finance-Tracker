@@ -21,7 +21,7 @@ export default function CloseIcon({
 const getSize = (size: string) => {
   switch (size) {
     case "small": {
-      return `w-5 h-5`;
+      return `w-5 h-5 p-0.5`;
     }
     case "medium": {
       return `w-8 h-8`;
