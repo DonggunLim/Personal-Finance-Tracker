@@ -6,6 +6,7 @@ import Popover from "./UI/Popover";
 import ExpenseFormModal, { FormData } from "./ExpenseFormModal";
 import CommonModal from "./common/CommonModal";
 import { RecordActionType } from "@/hooks/useRecords";
+import { useToast } from "@/hooks/useToast";
 
 type Props = {
   record: Record;
@@ -44,6 +45,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
   const payment_icon = paymentItems.filter((i) => i.title == paymentMethod)[0]
     .icon;
   const tag_icon = tagItems.filter((i) => i.title == tag)[0].icon;
+  const toast = useToast();
   const hadlePopoverClick = () => setIsPopoverShown(!isPopoverShown);
   const handleClickEdit = () => {
     setIsPopoverShown(false);
@@ -63,11 +65,17 @@ export default function RecordCard({ record, manageRecord }: Props) {
       body: JSON.stringify({ id: record._id }),
     }) //
       .then((res) => {
-        manageRecord(record, "delete");
+        if (res.ok) {
+          manageRecord(record, "delete");
+          toast.success("기록을 삭제 하였습니다.");
+        } else {
+          throw new Error(`서버에서 응답이 올바르지 않습니다.`);
+        }
       })
       .catch((error) => {
         console.error(error);
         manageRecord(record, "add");
+        toast.error(`${error.message}`);
       })
       .finally(() => {
         setIsDeleted(false);
@@ -81,12 +89,18 @@ export default function RecordCard({ record, manageRecord }: Props) {
       body: JSON.stringify(formData),
     }) //
       .then((res) => {
-        manageRecord(formData, "update");
+        if (res.ok) {
+          manageRecord(formData, "update");
+          toast.success("기록을 수정 하였습니다.");
+        } else {
+          throw new Error(`서버에서 응답이 올바르지 않습니다.`);
+        }
       })
       .catch((error) => {
         console.error(error);
         manageRecord(formData, "delete");
         manageRecord(prevRecord, "add");
+        toast.error(`${error.message}`);
       })
       .finally(() => {
         setIsEdited(false);

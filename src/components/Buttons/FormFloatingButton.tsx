@@ -5,12 +5,14 @@ import ExpenseFormModal, { FormData } from "../ExpenseFormModal";
 import AddIconButton from "./AddIconButton";
 import { Record } from "@/utilities/common";
 import { RecordActionType } from "@/hooks/useRecords";
+import { useToast } from "@/hooks/useToast";
 type Props = {
   manageRecord: (record: Record, action: RecordActionType) => void;
 };
 export default function FormFloatingButton({ manageRecord }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
+  const toast = useToast();
   const handleAddReocrdSubmit = (formData: FormData) => {
     fetch("/api/records", {
       method: "POST",
@@ -19,11 +21,15 @@ export default function FormFloatingButton({ manageRecord }: Props) {
       .then((res) => {
         if (res.ok) {
           manageRecord(formData, "add");
+          toast.success("기록이 추가 되었습니다.");
+        } else {
+          throw new Error("서버에서 응답이 올바르지 않습니다.");
         }
       })
       .catch((error) => {
         console.error(error);
         manageRecord(formData, "delete");
+        toast.success(`${error.message}`);
       })
       .finally(() => {
         onClose();
