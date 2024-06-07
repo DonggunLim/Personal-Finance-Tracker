@@ -1,3 +1,4 @@
+import { paymentItems } from "@/data/data";
 import { FormDataKeys } from "../ExpenseFormModal";
 import DropdownMenu from "./DropdownMenu";
 
@@ -7,15 +8,10 @@ type Props = {
 };
 
 export default function PaymentMenu({ onChange, initialValue }: Props) {
-  const items = [
-    { icon: "💰", title: "현금" },
-    { icon: "💳", title: "카드" },
-  ];
-
   return (
     <div className="flex justify-start py-1 px-2 rounded-md w-20">
       <DropdownMenu
-        items={items}
+        items={paymentItems}
         placeholder="지불방식"
         fieldName="paymentMethod"
         onChange={onChange}
