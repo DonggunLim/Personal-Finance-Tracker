@@ -19,12 +19,18 @@ export default function FormFloatingButton({ manageRecord }: Props) {
       body: JSON.stringify(formData),
     }) //
       .then((res) => {
-        if (res.ok) {
-          manageRecord(formData, "add");
-          toast.success("기록이 추가 되었습니다.");
-        } else {
-          throw new Error("서버에서 응답이 올바르지 않습니다.");
+        if (!res.ok) {
+          res.json().then((error) => {
+            throw new Error(
+              error.message || "서버에서 응답이 올바르지 않습니다."
+            );
+          });
         }
+        return res.json();
+      })
+      .then((data) => {
+        manageRecord(data, "add");
+        toast.success("기록이 추가 되었습니다.");
       })
       .catch((error) => {
         console.error(error);
