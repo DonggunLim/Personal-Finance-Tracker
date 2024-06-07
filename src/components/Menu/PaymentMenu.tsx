@@ -1,6 +1,6 @@
 import { paymentItems } from "@/data/data";
 import { FormDataKeys } from "../ExpenseFormModal";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "../UI/DropdownMenu";
 
 type Props = {
   onChange: (value: string, fieldName: FormDataKeys) => void;
