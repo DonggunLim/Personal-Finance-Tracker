@@ -12,7 +12,6 @@ type Props = {
 
 export default function Records({ records, manageRecord }: Props) {
   const [groupedRecords, setGroupedRecords] = useState<GroupedRecords>({});
-
   useEffect(() => {
     setGroupedRecords(groupRecordsByDate(records));
   }, [records]);
@@ -35,7 +34,7 @@ export default function Records({ records, manageRecord }: Props) {
           </div>
           <div className="w-full">
             <div>
-              <h1 className="text-lg font-bold">{date}</h1>
+              <h1 className="text-lg font-bold">{date.slice(-2) + "일"}</h1>
               {recordsForDate.map((record, index) => (
                 <RecordCard
                   key={index}
