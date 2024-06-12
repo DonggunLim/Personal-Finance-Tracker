@@ -1,24 +1,23 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/authOptions";
 import { getRecordByDate } from "@/service/record";
-import { NextRequest, NextResponse } from "next/server";
+import { NextContext, NextRequest, NextResponse } from "next/server";
 import { getStartEndDate } from "@/utilities/common";
+import { handleRequest } from "@/middlewares/handleRequest";
+import { authMiddleware } from "@/middlewares/auth";
 
-type Props = {
-  params: { date: string };
-};
+export async function GET(request: NextRequest, context: NextContext) {
+  return handleRequest(request, context, handlerForGetRecordsByDate, [
+    authMiddleware,
+  ]);
+}
 
-export async function GET(_: NextRequest, { params }: Props) {
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
-
-  if (!user) {
-    throw new Response("Authentication error", { status: 401 });
-  }
-
-  const date = params.date;
+const handlerForGetRecordsByDate = async (
+  request: NextRequest,
+  context: NextContext
+) => {
+  const user = request.data.user;
+  const date = context.params?.date || "";
   const { startDate, endDate } = getStartEndDate(date);
 
-  return getRecordByDate(user.id, startDate, endDate) //
-    .then((res) => NextResponse.json(res));
-}
+  const res = await getRecordByDate(user.id, startDate, endDate);
+  return NextResponse.json(res);
+};
