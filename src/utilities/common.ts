@@ -28,8 +28,8 @@ export type LineChartData = {
   totalExpense: number;
 };
 
-export const formatPriceToCurrency = (value: string) => {
-  const numberValue = Number(value);
+export const formatPriceToCurrency = (value: string | number) => {
+  const numberValue = typeof value === "string" ? Number(value) : value;
   return new Intl.NumberFormat("ko-KR", {
     style: "decimal",
     currency: "KRW",
