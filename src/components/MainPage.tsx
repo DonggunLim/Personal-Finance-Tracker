@@ -11,6 +11,7 @@ import { useDateNavigation } from "@/hooks/useDateNavigation";
 import { useUserData } from "@/hooks/useUserData";
 import { useRecords } from "@/hooks/useRecords";
 import FormFloatingButton from "./Buttons/FormFloatingButton";
+import TotalExpense from "./TotalExpense";
 
 type Props = {
   initialRecords: Record[];
@@ -38,6 +39,7 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
       </div>
       <div className="grid gird-cols-1 md:max-xl:grid-cols-2 auto-rows-min gap-8 order-2 xl:order-3">
         <FormFloatingButton manageRecord={manageRecord} />
+        <TotalExpense records={currentRecords} />
         <UserSetForm userData={userData} />
         <DailyLimitExceeds
           records={currentRecords}
