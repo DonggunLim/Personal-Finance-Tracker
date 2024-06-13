@@ -35,7 +35,11 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
           handlePrevBtn={handlePrevBtn}
           handleNextBtn={handleNextBtn}
         />
-        <Records records={currentRecords} manageRecord={manageRecord} />
+        <Records
+          records={currentRecords}
+          manageRecord={manageRecord}
+          userData={userData}
+        />
       </div>
       <div className="grid gird-cols-1 md:max-xl:grid-cols-2 auto-rows-min gap-8 order-2 xl:order-3">
         <FormFloatingButton manageRecord={manageRecord} />
