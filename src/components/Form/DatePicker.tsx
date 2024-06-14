@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Calendar from "../Calendar";
 import CalendarIcon from "../Icons/CalendarIcon";
-import { FormDataKeys } from "../ExpenseFormModal";
 
 type Props = {
   onChange: (value: string, fieldName: "date") => void;
