@@ -79,7 +79,7 @@ export default function DropdownMenu({
       </label>
       {isOpen && (
         <div
-          className="z-50 absolute -left-2 mt-2 bg-white shadow-md rounded-md max-h-40  min-w-20 
+          className="z-50 absolute -left-3 mt-2 bg-white shadow-md rounded-md max-h-40  min-w-20 
         scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-white overflow-y-auto"
         >
           {items &&

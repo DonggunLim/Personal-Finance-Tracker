@@ -10,10 +10,13 @@ type Props = {
 export default function DatePicker({ onChange, initialValue }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>(initialValue || "");
-  const labelRef = useRef<HTMLLabelElement>(null);
-
+  const datePickerRef = useRef<HTMLLabelElement>(null);
+  const toggleDatePicker = () => setIsOpen(!isOpen);
   const handleClickOutside = (event: MouseEvent) => {
-    if (labelRef.current && !labelRef.current.contains(event.target as Node)) {
+    if (
+      datePickerRef.current &&
+      !datePickerRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -33,20 +36,19 @@ export default function DatePicker({ onChange, initialValue }: Props) {
   }, []);
 
   return (
-    <label
-      ref={labelRef}
-      className="min-w-20 relative flex justify-start"
-      onClick={() => setIsOpen(true)}
-    >
-      <div
-        className={`flex items-center gap-x-1 text-sm font-semibold hover:opacity-100 ${
-          !!selected ? "opacity-100" : "opacity-20"
-        }`}
-      >
-        <CalendarIcon />
-        <span className="cursor-pointer">{selected || "날짜"}</span>
-      </div>
-      {isOpen && <Calendar onClick={handleClickDate} />}
-    </label>
+    <div className="w-full relative">
+      <label ref={datePickerRef} className="relative">
+        <div
+          className={`flex items-center gap-x-1 text-sm font-semibold hover:opacity-100 ${
+            !!selected ? "opacity-100" : "opacity-20"
+          }`}
+        >
+          <CalendarIcon />
+          <span className="cursor-pointer">{selected || "날짜"}</span>
+        </div>
+        <input onClick={toggleDatePicker} className="hidden" />
+        {isOpen && <Calendar onClick={handleClickDate} />}
+      </label>
+    </div>
   );
 }
