@@ -34,5 +34,38 @@ export default {
       name: 'description',
       type: 'string',
     },
+    {
+      title: 'Installment',
+      name: 'installment',
+      type: 'object',
+      fields: [
+        {
+          title: 'Is Installment',
+          name: 'isInstallment',
+          type: 'boolean',
+        },
+        {
+          title: 'Installment Period',
+          name: 'installmentPeriod',
+          type: 'number',
+          description: 'Number of months for the installment',
+          hidden: ({parent}) => !parent?.isInstallment,
+        },
+        {
+          title: 'Installment Amount',
+          name: 'installmentAmount',
+          type: 'number',
+          description: 'Amount to be paid in each installment',
+          hidden: ({parent}) => !parent?.isInstallment,
+        },
+        {
+          title: 'First Payment Date',
+          name: 'firstPaymentDate',
+          type: 'date',
+          description: 'Date of the first installment payment',
+          hidden: ({parent}) => !parent?.isInstallment,
+        },
+      ],
+    },
   ],
 }
