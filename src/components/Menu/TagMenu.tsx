@@ -12,7 +12,7 @@ export default function TagMenu({ onChange, initialValue }: Props) {
     <div className="flex justify-start py-1 px-2 rounded-md w-20">
       <DropdownMenu
         items={tagItems}
-        placeholder="태그"
+        title="태그"
         fieldName="tag"
         onChange={onChange}
         initialValue={initialValue}

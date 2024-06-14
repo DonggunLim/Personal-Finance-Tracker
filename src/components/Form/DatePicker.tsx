@@ -36,7 +36,7 @@ export default function DatePicker({ onChange, initialValue }: Props) {
   return (
     <label
       ref={labelRef}
-      className="min-w-20 relative flex justify-center"
+      className="min-w-20 relative flex justify-start"
       onClick={() => setIsOpen(true)}
     >
       <div

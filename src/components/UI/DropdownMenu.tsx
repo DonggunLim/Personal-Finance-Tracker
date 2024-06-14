@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormDataKeys } from "../ExpenseFormModal";
 
 type MenuItem = { icon: string; title: string };
-
+type SelectedItem = { title?: string; icon?: string };
 type Props = {
   items: MenuItem[];
-  placeholder: string;
+  title: string;
   fieldName: string;
   onChange: (value: string, fieldName: FormDataKeys) => void;
   initialValue?: string;
@@ -15,14 +15,17 @@ type Props = {
 
 export default function DropdownMenu({
   items,
-  placeholder,
+  title,
   fieldName,
   onChange,
   initialValue,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(initialValue || placeholder);
-
+  const [selectedItem, setSelected] = useState<SelectedItem>({
+    title: initialValue || title,
+    icon: items.filter((i) => i.title === initialValue)[0]?.icon,
+  });
+  const dropDownRef = useRef<HTMLDivElement>(null);
   const toggleDropdown = () => setIsOpen(!isOpen);
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (
@@ -35,29 +38,48 @@ export default function DropdownMenu({
   };
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.dataset.title || "";
-    setSelected(value);
+    const icon = e.currentTarget.dataset.icon || "";
+    setSelected({ title: value, icon });
     onChange(value, fieldName as FormDataKeys);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const checkClickOuter = (e: MouseEvent) => {
+      if (!dropDownRef.current?.contains(e.target as Node)) setIsOpen(false);
+    };
+
+    window.addEventListener("click", checkClickOuter, true);
+
+    return () => {
+      window.removeEventListener("click", checkClickOuter, true);
+    };
+  });
+
   return (
-    <div className="w-full relative">
-      <div
-        className={`w-full text-sm font-semibold hover:opacity-100 ${
-          selected === placeholder ? "opacity-40" : "opacity-100"
+    <div className="w-full relative" ref={dropDownRef}>
+      <label
+        className={`text-sm font-semibold cursor-pointer hover:opacity-100 ${
+          initialValue ? "opacity-100" : "opacity-20"
         }`}
       >
+        {initialValue ? (
+          <div className="flex items-center justify-start text-nowrap">
+            <span>{selectedItem.icon}</span>
+            <span className="ml-2">{selectedItem.title}</span>
+          </div>
+        ) : (
+          selectedItem.title
+        )}
         <input
           onClick={toggleDropdown}
           onBlur={handleBlur}
-          placeholder={selected}
-          readOnly={isOpen}
-          className="w-full outline-none cursor-pointer caret-transparent text-center"
+          className="hidden"
         />
-      </div>
+      </label>
       {isOpen && (
         <div
-          className="absolute -left-2 mt-2 bg-white shadow-md rounded-md
-        max-h-40  min-w-20 
+          className="z-50 absolute -left-2 mt-2 bg-white shadow-md rounded-md max-h-40  min-w-20 
         scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-white overflow-y-auto"
         >
           {items &&
@@ -68,6 +90,7 @@ export default function DropdownMenu({
                 key={index}
                 onClick={handleClick}
                 data-title={title}
+                data-icon={icon}
               >
                 <span>{icon}</span>
                 <p>{title}</p>

@@ -12,7 +12,7 @@ export default function PaymentMenu({ onChange, initialValue }: Props) {
     <div className="flex justify-start py-1 px-2 rounded-md w-20">
       <DropdownMenu
         items={paymentItems}
-        placeholder="지불방식"
+        title="지불방식"
         fieldName="paymentMethod"
         onChange={onChange}
         initialValue={initialValue}
