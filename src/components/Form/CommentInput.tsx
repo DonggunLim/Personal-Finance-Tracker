@@ -11,7 +11,7 @@ export default function CommentInput({ onChange, initialValue }: Props) {
 
   return (
     <CommonContentEditable
-      className={`outline-none box-border max-w-60 min-h-32`}
+      className={`box-border min-h-32 w-full rounded-md px-1 outline-none ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400`}
       placeholder="코멘트는 생략 가능합니다."
       onChange={handleChange}
       initialValue={initialValue}

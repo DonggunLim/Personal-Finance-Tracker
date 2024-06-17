@@ -3,101 +3,80 @@
 import { useEffect, useRef, useState } from "react";
 import { FormDataKeys } from "../ExpenseFormModal";
 
-type MenuItem = { icon: string; title: string };
-type SelectedItem = { title?: string; icon?: string };
+type Option = { icon?: string; title: string };
+type SelectedItem = { title: string; icon?: string };
 type Props = {
-  items: MenuItem[];
+  options: Option[];
   title: string;
-  fieldName: string;
+  name: FormDataKeys;
   onChange: (value: string, fieldName: FormDataKeys) => void;
   initialValue?: string;
+  disabled?: boolean;
 };
-
-export default function DropdownMenu({
-  items,
+export default function DropdownMenu<T>({
+  options,
   title,
-  fieldName,
+  name,
   onChange,
   initialValue,
+  disabled = false,
 }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelected] = useState<SelectedItem>({
-    title: initialValue || title,
-    icon: items.filter((i) => i.title === initialValue)[0]?.icon,
+  const [select, setSelect] = useState<SelectedItem>({
+    title: initialValue || "",
+    icon: options.find((o) => o.title === initialValue)?.icon,
   });
+  const [isOpen, setIsOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (
-      e.relatedTarget instanceof Element &&
-      e.relatedTarget.tagName.toLowerCase() === "button"
-    ) {
-      return;
-    }
+  const handleClick = (item: SelectedItem) => {
+    setSelect(item);
     setIsOpen(false);
-  };
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const value = e.currentTarget.dataset.title || "";
-    const icon = e.currentTarget.dataset.icon || "";
-    setSelected({ title: value, icon });
-    onChange(value, fieldName as FormDataKeys);
-    setIsOpen(false);
+    onChange(item.title, name);
   };
 
   useEffect(() => {
     const checkClickOuter = (e: MouseEvent) => {
       if (!dropDownRef.current?.contains(e.target as Node)) setIsOpen(false);
     };
-
     window.addEventListener("click", checkClickOuter, true);
-
     return () => {
       window.removeEventListener("click", checkClickOuter, true);
     };
   });
-
   return (
-    <div className="w-full relative" ref={dropDownRef}>
+    <div className="dropdown">
       <label
-        className={`text-sm font-semibold cursor-pointer hover:opacity-100 ${
-          initialValue ? "opacity-100" : "opacity-20"
-        }`}
+        className={`${disabled && "text-neutral-400"} text-xs font-bold`}
+        aria-disabled={disabled}
+        htmlFor="dropdown-btn"
       >
-        {initialValue ? (
-          <div className="flex items-center justify-start text-nowrap">
-            <span>{selectedItem.icon}</span>
-            <span className="ml-2">{selectedItem.title}</span>
-          </div>
-        ) : (
-          selectedItem.title
-        )}
-        <input
-          onClick={toggleDropdown}
-          onBlur={handleBlur}
-          className="hidden"
-        />
+        {title}
       </label>
-      {isOpen && (
-        <div
-          className="z-50 absolute -left-3 mt-2 bg-white shadow-md rounded-md max-h-40  min-w-20 
-        scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-white overflow-y-auto"
+      <div className="relative" ref={dropDownRef}>
+        <button
+          id="dropdown-btn"
+          className="w-full rounded-md px-2 py-2 text-left text-xs font-semibold ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 disabled:text-neutral-400"
+          onClick={() => setIsOpen(!isOpen)}
+          disabled={disabled}
         >
-          {items &&
-            items.map(({ icon, title }, index) => (
-              <button
-                className="w-full flex flex-col  justify-center items-center px-4 py-2 
-                text-xs text-gray-700 hover:bg-gray-100"
+          {initialValue
+            ? `${select.icon} ${select.title}`
+            : `${title}을 선택하세요.`}
+        </button>
+        {isOpen && (
+          <ul className="absolute z-50 mt-2 max-h-40 w-full min-w-20 overflow-y-auto rounded-md bg-white shadow-md scrollbar-thin scrollbar-track-white scrollbar-thumb-neutral-400">
+            {options.map(({ icon, title }, index) => (
+              <li
+                className="flex w-full cursor-pointer px-4 py-2 text-xs hover:bg-gray-100"
                 key={index}
-                onClick={handleClick}
-                data-title={title}
-                data-icon={icon}
+                onClick={() => handleClick({ title, icon: icon || "" })}
               >
-                <span>{icon}</span>
-                <p>{title}</p>
-              </button>
+                {icon}
+                {title}
+              </li>
             ))}
-        </div>
-      )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

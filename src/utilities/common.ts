@@ -4,6 +4,7 @@ export type Record = {
   description: string;
   paymentMethod: string;
   tag: string;
+  installment: string;
   _id?: string;
 };
 
@@ -92,7 +93,7 @@ export const orderByPrice = (records: Record[]) => {
 
 export const countDaysOfExceeds = (
   records: Record[],
-  dailySpendingLimit: number
+  dailySpendingLimit: number,
 ) => {
   const dailySums: { [key: string]: number } = {};
 
@@ -140,7 +141,7 @@ export const processGroupedRecordsToLineChartData = (records: Record[]) => {
   Object.entries(groupedRecords).forEach(([date, records]) => {
     const totalExpense = records.reduce(
       (sum, record) => sum + parseInt(record.price, 10),
-      0
+      0,
     );
     chartData.push({
       name: date,

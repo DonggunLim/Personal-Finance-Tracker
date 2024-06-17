@@ -24,10 +24,10 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
   const { currentRecords, manageRecord } = useRecords(
     currentDate,
     initialRecords,
-    cachedKey
+    cachedKey,
   );
   return (
-    <main className="relative mt-12 max-w-[1280px] mx-auto px-4 grid grid-cols-1 xl:grid-cols-[2fr_7fr_3fr] gap-x-16">
+    <main className="relative mx-auto mt-12 grid max-w-[1280px] grid-cols-1 gap-x-16 px-4 xl:grid-cols-[2fr_7fr_3fr]">
       <div className=""></div>
       <div className="order-3 xl:order-2">
         <SelectedMonth
@@ -41,7 +41,7 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
           userData={userData}
         />
       </div>
-      <div className="grid gird-cols-1 md:max-xl:grid-cols-2 auto-rows-min gap-8 order-2 xl:order-3">
+      <div className="gird-cols-1 order-2 grid auto-rows-min gap-8 md:max-xl:grid-cols-2 xl:order-3">
         <FormFloatingButton manageRecord={manageRecord} />
         <TotalExpense records={currentRecords} />
         <UserSetForm userData={userData} />

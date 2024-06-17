@@ -31,12 +31,12 @@ export default function PriceInput({ onChange, initialValue }: Props) {
       <div className="flex items-center px-2">
         <input
           ref={inputRef}
-          className="w-full outline-none cursor-pointer text-lg font-semibold text-right "
+          className="w-full cursor-pointer text-right text-lg font-semibold outline-none focus:ring-1 focus:ring-purple-400"
           value={formatPriceToCurrency(price)}
           onChange={handleChange}
           onFocus={handleFocus}
         />
-        <span>원</span>
+        <span className="text-lg font-semibold">원</span>
       </div>
     </label>
   );
