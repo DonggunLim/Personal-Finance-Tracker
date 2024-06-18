@@ -54,6 +54,7 @@ export default function DropdownMenu<T>({
       <div className="relative" ref={dropDownRef}>
         <button
           id="dropdown-btn"
+          type="button"
           className="w-full rounded-md px-2 py-2 text-left text-xs font-semibold ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 disabled:text-neutral-400"
           onClick={() => setIsOpen(!isOpen)}
           disabled={disabled}
