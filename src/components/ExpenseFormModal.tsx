@@ -69,6 +69,7 @@ export default function ExpenseFormModal({
               <DatePicker
                 onChange={handleChange}
                 initialValue={formData.date}
+                title="지출일"
               />
               <div className="">
                 <DropdownMenu

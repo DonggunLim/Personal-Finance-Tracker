@@ -35,15 +35,15 @@ export default function Calendar({ onClick }: Props) {
   } = useCalendar();
 
   return (
-    <div className="min-w-[260px] bg-white p-2 absolute top-8 -left-[100px] z-50 shadow-md">
-      <div className="flex flex-col gap-y-2 items-center">
+    <div className="absolute z-50 mt-2 w-full rounded-md bg-slate-500 shadow-md">
+      <div className="flex flex-col items-center gap-y-2">
         <p className="font-semibold">
           {MONTH[today.month()]}, {today.year()}
         </p>
-        <div className="flex gap-10 items-center ">
+        <div className="flex items-center gap-10">
           <ArrowLeftIcon onClick={handlePrevButton} />
           <h1
-            className=" cursor-pointer hover:scale-105 transition-all"
+            className="cursor-pointer transition-all hover:scale-105"
             onClick={handleTodayButton}
           >
             Today
@@ -62,16 +62,14 @@ export default function Calendar({ onClick }: Props) {
             return (
               <div
                 key={index}
-                className={`grid place-content-center p-2 rounded-full ${
-                  currentMonth && "hover:bg-purple-100 cursor-pointer"
-                }
-            ${
-              selectedDate.toDate().toDateString() ===
-              date.toDate().toDateString()
-                ? "bg-red-400 text-white"
-                : ""
-            }
-            `}
+                className={`grid place-content-center rounded-full p-2 ${
+                  currentMonth && "cursor-pointer hover:bg-purple-100"
+                } ${
+                  selectedDate.toDate().toDateString() ===
+                  date.toDate().toDateString()
+                    ? "bg-red-400 text-white"
+                    : ""
+                } `}
                 onClick={() => {
                   handleClickDate(date);
                   onClick(date.format("YYYY-MM-DD"));
@@ -86,7 +84,7 @@ export default function Calendar({ onClick }: Props) {
                 </p>
               </div>
             );
-          }
+          },
         )}
       </div>
     </div>
