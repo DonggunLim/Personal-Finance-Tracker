@@ -27,17 +27,17 @@ export default function PriceInput({ onChange, initialValue }: Props) {
   };
 
   return (
-    <label>
-      <div className="flex items-center px-2">
+    <div>
+      <label className="text-xs font-bold">금액</label>
+      <div className="">
         <input
           ref={inputRef}
-          className="w-full cursor-pointer text-right text-lg font-semibold outline-none focus:ring-1 focus:ring-purple-400"
+          className="flex w-full rounded-md px-2 py-2 text-left text-xs font-semibold outline-none ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400"
           value={formatPriceToCurrency(price)}
           onChange={handleChange}
           onFocus={handleFocus}
         />
-        <span className="text-lg font-semibold">원</span>
       </div>
-    </label>
+    </div>
   );
 }
