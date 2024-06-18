@@ -42,8 +42,7 @@ export default function ExpenseFormModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    // onSubmit(formData);
+    onSubmit(formData);
   };
 
   useEffect(() => {

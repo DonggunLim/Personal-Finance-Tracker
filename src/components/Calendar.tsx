@@ -20,9 +20,10 @@ const MONTH = [
 
 type Props = {
   onClick: (date: string) => void;
+  initialValue?: string;
 };
 
-export default function Calendar({ onClick }: Props) {
+export default function Calendar({ onClick, initialValue }: Props) {
   const {
     today,
     currentDate,
@@ -32,10 +33,10 @@ export default function Calendar({ onClick }: Props) {
     handleNextButton,
     handleTodayButton,
     handleClickDate,
-  } = useCalendar();
+  } = useCalendar({ initialValue });
 
   return (
-    <div className="absolute z-50 mt-2 w-full rounded-md bg-slate-500 shadow-md">
+    <div className="absolute z-50 mt-2 w-full rounded-md bg-white shadow-lg">
       <div className="flex flex-col items-center gap-y-2">
         <p className="font-semibold">
           {MONTH[today.month()]}, {today.year()}

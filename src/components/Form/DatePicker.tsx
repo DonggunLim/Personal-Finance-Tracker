@@ -12,7 +12,6 @@ export default function DatePicker({ onChange, initialValue, title }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>(initialValue || "");
   const datePickerRef = useRef<HTMLDivElement>(null);
-
   const handleClickDate = (value: string) => {
     setSelected(value);
     setIsOpen(false);
@@ -43,7 +42,9 @@ export default function DatePicker({ onChange, initialValue, title }: Props) {
           <CalendarIcon />
           {selected || "YYYY-MM-DD"}
         </button>
-        {isOpen && <Calendar onClick={handleClickDate} />}
+        {isOpen && (
+          <Calendar onClick={handleClickDate} initialValue={initialValue} />
+        )}
       </div>
     </div>
   );

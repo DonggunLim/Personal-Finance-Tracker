@@ -1,8 +1,14 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 
-export default function useCalendar() {
-  const currentDate = dayjs();
+type Props = {
+  initialValue?: string;
+};
+
+export default function useCalendar({ initialValue }: Props) {
+  const [currentDate, setCurrentDate] = useState(
+    dayjs(initialValue || new Date()),
+  );
   const [today, setToday] = useState(currentDate);
   const [selectedDate, setSelectedDate] = useState(currentDate);
 
@@ -39,7 +45,10 @@ export default function useCalendar() {
     setToday(today.month(today.month() + 1));
   };
   const handleTodayButton = () => {
-    setToday(currentDate);
+    const now = dayjs();
+    setCurrentDate(now);
+    setToday(now);
+    setSelectedDate(now);
   };
   const handleClickDate = (date: Dayjs) => {
     setSelectedDate(date);
