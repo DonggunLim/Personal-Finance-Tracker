@@ -168,5 +168,5 @@ export const calculateTotalExpense = (records: Record[]) => {
     const amount = Number(record.price);
     return total + (isNaN(amount) ? 0 : amount);
   }, 0);
-  return formatPriceToCurrency(expense);
+  return expense;
 };

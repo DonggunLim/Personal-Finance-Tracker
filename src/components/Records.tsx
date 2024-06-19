@@ -4,6 +4,7 @@ import {
   GroupedRecords,
   Record,
   calculateTotalExpense,
+  formatPriceToCurrency,
   groupRecordsByDate,
 } from "@/utilities/common";
 import { useEffect, useState } from "react";
@@ -33,19 +34,21 @@ export default function Records({ records, manageRecord, userData }: Props) {
       )}
       {Object.entries(groupedRecords).map(([date, recordsForDate]) => {
         const totalExpense = calculateTotalExpense(recordsForDate);
+        const dailySpendingLimit = parseInt(userData.dailySpendingLimit, 10);
+        console.log(totalExpense);
         return (
           <div key={date} className="my-2 flex">
             <div className="relative mr-3 flex w-4 flex-col items-center">
               <div
                 className={`absolute top-0 mt-4 h-full w-0 border-0 border-l-4 border-dotted ${
-                  totalExpense > userData.dailySpendingLimit
+                  totalExpense > dailySpendingLimit
                     ? "border-red-400"
                     : "border-purple-400"
                 } `}
               ></div>
               <div
                 className={`left-0 mt-3 h-2 w-2 rounded-full ${
-                  totalExpense > userData.dailySpendingLimit
+                  totalExpense > dailySpendingLimit
                     ? "bg-red-400"
                     : "bg-purple-400"
                 }`}
@@ -55,8 +58,10 @@ export default function Records({ records, manageRecord, userData }: Props) {
               <div>
                 <div className="flex gap-x-4">
                   <h1 className="text-lg font-bold">{date.slice(-2) + "일"}</h1>
-                  {totalExpense > userData.dailySpendingLimit && (
-                    <Tooltip text={`일일 지출 한도 초과. ${totalExpense}원`}>
+                  {totalExpense > dailySpendingLimit && (
+                    <Tooltip
+                      text={`일일 지출 한도 초과. ${formatPriceToCurrency(totalExpense)}원`}
+                    >
                       <div>❗</div>
                     </Tooltip>
                   )}
