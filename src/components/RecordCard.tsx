@@ -3,7 +3,8 @@ import { useState } from "react";
 import CloseIcon from "./Icons/CloseIcon";
 import { LiaEdit } from "react-icons/lia";
 import Popover from "./UI/Popover";
-import ExpenseFormModal, { FormData } from "./ExpenseFormModal";
+import { FormData } from "./ExpenseFormModal";
+import ExpenseFormModal from "./ExpenseFormModal";
 import CommonModal from "./common/CommonModal";
 import { RecordActionType } from "@/hooks/useRecords";
 import { useToast } from "@/hooks/useToast";
@@ -88,7 +89,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
 
   return (
     <div
-      className={`relative group box flex justify-between mb-2 hover:bg-slate-500 ${
+      className={`box group relative mb-2 flex justify-between hover:bg-slate-500 ${
         isPopoverShown && "bg-slate-500"
       }`}
       onMouseOver={() => setIsFocused(true)}
@@ -96,7 +97,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
         if (!isPopoverShown) setIsFocused(false);
       }}
     >
-      <div className="pl-4 py-2">
+      <div className="py-2 pl-4">
         <p
           className={`text-xs font-medium group-hover:text-white ${
             isPopoverShown && "text-white"
@@ -104,7 +105,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
         >
           {description}
         </p>
-        <div className="flex gap-2 mt-2">
+        <div className="mt-2 flex gap-2">
           <p className="input">
             <span>{payment_icon}</span>
             {paymentMethod}
@@ -124,7 +125,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
       </div>
       {isFocused && (
         <button
-          className="absolute top-0 right-3 text-xl font-bold text-white hover:scale-125 cursor-pointer"
+          className="absolute right-3 top-0 cursor-pointer text-xl font-bold text-white hover:scale-125"
           onClick={hadlePopoverClick}
         >
           ...
@@ -132,22 +133,22 @@ export default function RecordCard({ record, manageRecord }: Props) {
       )}
       {isPopoverShown && (
         <Popover
-          className="absolute top-9 right-0 z-50"
+          className="absolute right-0 top-9 z-50"
           onClose={onClosePopover}
         >
-          <div className="w-36 bg-white text-xs font-extrabold flex flex-col items-center p-1 rounded-md">
+          <div className="flex w-36 flex-col items-center rounded-md bg-white p-1 text-xs font-extrabold">
             <button
               onClick={handleClickEdit}
-              className="group/edit w-full flex items-center hover:bg-purple-100 p-1 rounded-md cursor-pointer"
+              className="group/edit flex w-full cursor-pointer items-center rounded-md p-1 hover:bg-purple-100"
             >
               <span className="group-hover/edit:text-purple-700">
-                <LiaEdit className="w-5 h-5" />
+                <LiaEdit className="h-5 w-5" />
               </span>
               수정
             </button>
             <button
               onClick={handleClickDelete}
-              className="group/delete w-full flex items-center hover:bg-red-100 p-1 rounded-md cursor-pointer"
+              className="group/delete flex w-full cursor-pointer items-center rounded-md p-1 hover:bg-red-100"
             >
               <CloseIcon className="group-hover/delete:text-red-700" />
               삭제
@@ -164,21 +165,18 @@ export default function RecordCard({ record, manageRecord }: Props) {
       )}
       {isDeleted && (
         <CommonModal>
-          <section
-            className="fixed top-0 left-0 w-full h-full bg-gray-900/30 backdrop-blur-sm 
-          flex justify-center items-center"
-          >
-            <div className="bg-white rounded-md p-8 relative">
+          <section className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-900/30 backdrop-blur-sm">
+            <div className="relative rounded-md bg-white p-8">
               <CloseIcon
-                className="absolute top-1 right-1 cursor-pointer"
+                className="absolute right-1 top-1 cursor-pointer"
                 onClose={() => setIsDeleted(false)}
               />
-              <div className="w-72 flex flex-col items-center gap-y-4">
-                <p className="font-semibold text-lg text-gray-500">
+              <div className="flex w-72 flex-col items-center gap-y-4">
+                <p className="text-lg font-semibold text-gray-500">
                   기록을 삭제하시겠습니까?
                 </p>
                 <button
-                  className="w-20 text-xs text-white font-semibold bg-purple-400 rounded-md px-2 py-1"
+                  className="w-20 rounded-md bg-purple-400 px-2 py-1 text-xs font-semibold text-white"
                   onClick={handleDeleteSubmit}
                 >
                   삭제하기

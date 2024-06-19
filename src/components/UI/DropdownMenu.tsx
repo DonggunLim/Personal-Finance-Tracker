@@ -12,6 +12,7 @@ type Props = {
   onChange: (value: string, fieldName: FormDataKeys) => void;
   initialValue?: string;
   disabled?: boolean;
+  error?: string;
 };
 export default function DropdownMenu<T>({
   options,
@@ -20,6 +21,7 @@ export default function DropdownMenu<T>({
   onChange,
   initialValue,
   disabled = false,
+  error,
 }: Props) {
   const [select, setSelect] = useState<SelectedItem>({
     title: initialValue || "",
@@ -55,7 +57,7 @@ export default function DropdownMenu<T>({
         <button
           id="dropdown-btn"
           type="button"
-          className="w-full rounded-md px-2 py-2 text-left text-xs font-semibold ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 disabled:text-neutral-400"
+          className={`w-full rounded-md px-2 py-2 text-left text-xs font-semibold ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 disabled:text-neutral-400 ${error && "ring-1 ring-red-400"}`}
           onClick={() => setIsOpen(!isOpen)}
           disabled={disabled}
         >

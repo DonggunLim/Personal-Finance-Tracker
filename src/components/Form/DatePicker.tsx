@@ -6,9 +6,15 @@ type Props = {
   onChange: (value: string, fieldName: "date") => void;
   initialValue?: string;
   title: string;
+  error?: string;
 };
 
-export default function DatePicker({ onChange, initialValue, title }: Props) {
+export default function DatePicker({
+  onChange,
+  initialValue,
+  title,
+  error,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string>(initialValue || "");
   const datePickerRef = useRef<HTMLDivElement>(null);
@@ -36,7 +42,7 @@ export default function DatePicker({ onChange, initialValue, title }: Props) {
       <div className="relative" ref={datePickerRef}>
         <button
           type="button"
-          className="flex w-full rounded-md px-2 py-2 text-left text-xs font-semibold ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 disabled:text-neutral-400"
+          className={`flex w-full rounded-md px-2 py-2 text-left text-xs font-semibold ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 disabled:text-neutral-400 ${error && "ring-1 ring-red-400"}`}
           onClick={() => setIsOpen(!isOpen)}
           id="datepicker-btn"
         >

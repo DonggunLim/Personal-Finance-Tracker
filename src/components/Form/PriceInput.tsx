@@ -5,9 +5,10 @@ import { FormDataKeys } from "../ExpenseFormModal";
 type Props = {
   onChange: (value: string, fieldName: FormDataKeys) => void;
   initialValue?: string;
+  error?: string;
 };
 
-export default function PriceInput({ onChange, initialValue }: Props) {
+export default function PriceInput({ onChange, initialValue, error }: Props) {
   const [price, setPrice] = useState(initialValue || "");
   const inputRef = useRef<HTMLInputElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +33,7 @@ export default function PriceInput({ onChange, initialValue }: Props) {
       <div className="">
         <input
           ref={inputRef}
-          className="flex w-full rounded-md px-2 py-2 text-left text-xs font-semibold outline-none ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400"
+          className={`flex w-full rounded-md px-2 py-2 text-left text-xs font-semibold outline-none ring-1 ring-neutral-400 focus:ring-1 focus:ring-purple-400 ${error && "ring-1 ring-red-400"}`}
           value={formatPriceToCurrency(price)}
           onChange={handleChange}
           onFocus={handleFocus}

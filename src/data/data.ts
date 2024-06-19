@@ -23,6 +23,7 @@ export const tagItems = [
 ];
 
 export const installmentItem = [
+  { title: "일시불" },
   { title: "1개월" },
   { title: "2개월" },
   { title: "3개월" },

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import ExpenseFormModal, { FormData } from "../ExpenseFormModal";
+import { FormData } from "../ExpenseFormModal";
+import ExpenseFormModal from "../ExpenseFormModal";
 import AddIconButton from "./AddIconButton";
 import { Record } from "@/utilities/common";
 import { RecordActionType } from "@/hooks/useRecords";
@@ -22,7 +23,7 @@ export default function FormFloatingButton({ manageRecord }: Props) {
         if (!res.ok) {
           res.json().then((error) => {
             throw new Error(
-              error.message || "서버에서 응답이 올바르지 않습니다."
+              error.message || "서버에서 응답이 올바르지 않습니다.",
             );
           });
         }
