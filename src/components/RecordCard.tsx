@@ -68,12 +68,18 @@ export default function RecordCard({ record, manageRecord }: Props) {
       body: JSON.stringify(formData),
     }) //
       .then((res) => {
-        if (res.ok) {
-          manageRecord(formData, "update");
-          toast.success("기록을 수정 하였습니다.");
-        } else {
-          throw new Error(`서버에서 응답이 올바르지 않습니다.`);
+        if (!res.ok) {
+          res.json().then((error) => {
+            throw new Error(
+              error.message || "서버에서 응답이 올바르지 않습니다.",
+            );
+          });
         }
+        return res.json();
+      })
+      .then((data) => {
+        manageRecord(data, "update");
+        toast.success("기록을 수정 하였습니다.");
       })
       .catch((error) => {
         console.error(error);

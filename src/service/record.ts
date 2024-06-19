@@ -2,7 +2,15 @@ import { client } from "./sanity";
 import { FormData } from "@/components/ExpenseFormModal";
 
 export const AddRecord = (userId: string, formData: FormData) => {
-  const { date, price, paymentMethod, tag, description } = formData;
+  const {
+    date,
+    price,
+    paymentMethod,
+    tag,
+    description,
+    installment,
+    installmentDetails,
+  } = formData;
   return client //
     .create(
       {
@@ -16,8 +24,10 @@ export const AddRecord = (userId: string, formData: FormData) => {
         paymentMethod,
         tag,
         description,
+        installment,
+        installmentDetails,
       },
-      { autoGenerateArrayKeys: true }
+      { autoGenerateArrayKeys: true },
     );
 };
 
@@ -32,7 +42,7 @@ export const getRecord = async (userId: string) => {
 export const getRecordByDate = (
   userId: string,
   startDate: string,
-  endDate: string
+  endDate: string,
 ) => {
   const query = `*[_type == "record" && author->_id == "${userId}" 
   && date >= "${startDate}" && date < "${endDate}"]`;

@@ -12,7 +12,7 @@ export type RecordActionType = "delete" | "update" | "add";
 export const useRecords = (
   currentDate: Date,
   initialRecords: Record[],
-  cachedKey: string
+  cachedKey: string,
 ) => {
   const currentKey = convertDateToYYYYMMDD(currentDate).slice(0, 7);
   const [records, setRecords] = useState<GroupedRecords>({
@@ -40,8 +40,8 @@ export const useRecords = (
       .catch((error) =>
         console.error(
           `There was an error fetching record in ${currentKey}`,
-          error
-        )
+          error,
+        ),
       );
   }, [currentDate, currentKey]);
 
@@ -65,7 +65,7 @@ export const useRecords = (
           return {
             ...prev,
             [dateKey]: recordsForDateKey.map((r) =>
-              r._id === record._id ? record : r
+              r._id === record._id ? record : r,
             ),
           };
         }

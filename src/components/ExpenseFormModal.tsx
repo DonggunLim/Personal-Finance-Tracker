@@ -25,18 +25,28 @@ export default function ExpenseFormModal({
     tag: "",
     description: "",
     installment: "",
+    installmentDetails: {
+      isInstallment: false,
+      installmentString: "",
+      installmentPeriod: 0,
+      installmentAmount: 0,
+      firstPaymentDate: "",
+    },
   },
   onSubmit,
 }: Props) {
   const [formData, setFormData] = useState<FormData>(initialFormData);
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (value: string, name: FormDataKeys) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => {
+      const updatedFormData = { ...prev, [name]: value };
+      if (name === "paymentMethod" && value === "현금") {
+        updatedFormData.installment = "";
+      }
+      return updatedFormData;
+    });
     setErrors((prev) => {
       const newErrors = { ...prev, [name]: "" };
       if (name === "paymentMethod" && value === "현금") {
@@ -57,7 +67,7 @@ export default function ExpenseFormModal({
   };
 
   const validateForm = () => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: { [key: string]: string } = {};
     if (!formData.date) newErrors.date = "날짜를 입력해주세요.";
     if (!formData.paymentMethod)
       newErrors.paymentMethod = "지불방식을 선택해주세요.";
@@ -77,7 +87,6 @@ export default function ExpenseFormModal({
       window.removeEventListener("click", checkClickOuter, true);
     };
   });
-
   return (
     <CommonModal>
       <section className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gray-900/30 backdrop-blur-sm">

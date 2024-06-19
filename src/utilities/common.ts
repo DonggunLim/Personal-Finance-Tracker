@@ -5,7 +5,16 @@ export type Record = {
   paymentMethod: string;
   tag: string;
   installment: string;
+  installmentDetails: InstallmentDetails;
   _id?: string;
+};
+
+export type InstallmentDetails = {
+  isInstallment: boolean;
+  installmentString: string;
+  installmentPeriod?: number;
+  installmentAmount?: number;
+  firstPaymentDate?: string;
 };
 
 export type GroupedRecords = {

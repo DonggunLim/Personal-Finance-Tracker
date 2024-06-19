@@ -62,7 +62,7 @@ export default function DropdownMenu<T>({
           disabled={disabled}
         >
           {initialValue
-            ? `${select.icon} ${select.title}`
+            ? `${select.icon || ""} ${select.title}`
             : `${title}을 선택하세요.`}
         </button>
         {isOpen && (

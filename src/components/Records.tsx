@@ -25,7 +25,7 @@ export default function Records({ records, manageRecord, userData }: Props) {
   }, [records]);
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex w-full flex-col">
       {records.length === 0 && (
         <div className="flex items-center justify-center py-28">
           <p className="font-bold">지출 내역이 없습니다.</p>
@@ -34,15 +34,14 @@ export default function Records({ records, manageRecord, userData }: Props) {
       {Object.entries(groupedRecords).map(([date, recordsForDate]) => {
         const totalExpense = calculateTotalExpense(recordsForDate);
         return (
-          <div key={date} className="flex my-2">
-            <div className="flex flex-col relative mr-3 w-4 items-center">
+          <div key={date} className="my-2 flex">
+            <div className="relative mr-3 flex w-4 flex-col items-center">
               <div
-                className={`absolute top-0 mt-4 h-full w-0 
-              border-0 border-l-4 border-dotted ${
-                totalExpense > userData.dailySpendingLimit
-                  ? "border-red-400"
-                  : "border-purple-400"
-              } `}
+                className={`absolute top-0 mt-4 h-full w-0 border-0 border-l-4 border-dotted ${
+                  totalExpense > userData.dailySpendingLimit
+                    ? "border-red-400"
+                    : "border-purple-400"
+                } `}
               ></div>
               <div
                 className={`left-0 mt-3 h-2 w-2 rounded-full ${
