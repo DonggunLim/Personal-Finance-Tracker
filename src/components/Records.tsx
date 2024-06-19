@@ -35,7 +35,6 @@ export default function Records({ records, manageRecord, userData }: Props) {
       {Object.entries(groupedRecords).map(([date, recordsForDate]) => {
         const totalExpense = calculateTotalExpense(recordsForDate);
         const dailySpendingLimit = parseInt(userData.dailySpendingLimit, 10);
-        console.log(totalExpense);
         return (
           <div key={date} className="my-2 flex">
             <div className="relative mr-3 flex w-4 flex-col items-center">

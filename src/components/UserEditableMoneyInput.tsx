@@ -1,17 +1,18 @@
+import { SanityUser } from "@/types/user";
 import { formatPriceToCurrency } from "@/utilities/common";
 import { useEffect, useState } from "react";
 
 type MoneyInputProps = {
   label: string;
-  title: string;
+  name: keyof SanityUser;
   initialValue?: string;
   onChange?: (value: string) => void;
-  onSubmit: (title: string, data: string) => void;
+  onSubmit: (name: keyof SanityUser, data: string, label: string) => void;
 };
 
 export default function UserEditableMoneyInput({
   label,
-  title,
+  name,
   initialValue = "",
   onChange,
   onSubmit,
@@ -33,21 +34,21 @@ export default function UserEditableMoneyInput({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(title, localValue);
+    onSubmit(name, localValue, label);
     setHasChanged(false);
   };
 
   return (
     <form onSubmit={handleSubmit} className="relative flex-1">
       {hasChanged && (
-        <button className="text-xs absolute right-0 top-0 bg-purple-200 rounded-xl px-2 py-[1px]">
+        <button className="absolute right-0 top-0 rounded-xl bg-purple-200 px-2 py-[1px] text-xs">
           저장
         </button>
       )}
-      <p className="text-xs font-medium mb-1">{label}</p>
+      <p className="mb-1 text-xs font-medium">{label}</p>
       <div className="box flex items-center text-lg font-bold">
         <input
-          className="w-full outline-none cursor-pointer text-right"
+          className="w-full cursor-pointer text-right outline-none"
           placeholder={localValue || "-원"}
           onChange={handleChange}
           value={formatPriceToCurrency(localValue)}

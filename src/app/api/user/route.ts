@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
   const data = await req.json();
 
-  const updatedObject = { [data.title]: data.data };
+  const updatedObject = { [data.name]: data.data };
 
   return updateUserinfo(user.id, updatedObject) //
     .then((res) => NextResponse.json(res));

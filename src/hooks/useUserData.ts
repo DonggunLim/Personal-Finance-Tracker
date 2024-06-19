@@ -12,6 +12,7 @@ export const useUserData = () => {
     fixedIncome: "",
     dailySpendingLimit: "",
   });
+  const manageUserData = (data: SanityUser) => setUserdata(data);
 
   useEffect(() => {
     fetch("/api/user", {
@@ -20,9 +21,9 @@ export const useUserData = () => {
       .then((res) => res.json())
       .then((res) => setUserdata(res[0]))
       .catch((error) =>
-        console.error("There was an error fetching user data!", error)
+        console.error("There was an error fetching user data!", error),
       );
   }, []);
 
-  return userData;
+  return { userData, manageUserData };
 };

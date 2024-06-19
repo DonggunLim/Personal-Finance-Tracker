@@ -20,7 +20,7 @@ type Props = {
 
 export default function MainPage({ initialRecords, cachedKey }: Props) {
   const { currentDate, handlePrevBtn, handleNextBtn } = useDateNavigation();
-  const userData = useUserData();
+  const { userData, manageUserData } = useUserData();
   const { currentRecords, manageRecord } = useRecords(
     currentDate,
     initialRecords,
@@ -44,7 +44,7 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
       <div className="gird-cols-1 order-2 grid auto-rows-min gap-8 md:max-xl:grid-cols-2 xl:order-3">
         <FormFloatingButton manageRecord={manageRecord} />
         <TotalExpense records={currentRecords} />
-        <UserSetForm userData={userData} />
+        <UserSetForm userData={userData} manageUserData={manageUserData} />
         <DailyLimitExceeds
           records={currentRecords}
           dailySpendingLimit={userData.dailySpendingLimit}
