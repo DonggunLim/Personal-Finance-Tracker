@@ -1,10 +1,7 @@
 import { tagItems } from "@/data/data";
-import {
-  PriceSummary,
-  Record,
-  formatPriceToCurrency,
-  orderByPrice,
-} from "@/utilities/common";
+import { PriceSummary } from "@/types/common";
+import { Record } from "@/types/record";
+import { formatPriceToCurrency, orderByPrice } from "@/utilities/common";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -20,17 +17,16 @@ export default function ExpenditureRank({ records }: Props) {
 
   return (
     <div>
-      <p className="text-xs font-medium mb-1">😂가장 큰 지출</p>
+      <p className="mb-1 text-xs font-medium">😂가장 큰 지출</p>
       <ul className="box">
         {rankByPrice.map(({ tag, description, price }, index) => (
           <li
-            className="flex gap-2 justify-between items-center py-2 px-1
-           hover:bg-neutral-100 rounded-lg"
+            className="flex items-center justify-between gap-2 rounded-lg px-1 py-2 hover:bg-neutral-100"
             key={index}
           >
             <div className="flex items-center">
-              <p className="font-bold text-sm">{index + 1}</p>
-              <p className="mx-1 text-xs font-bold whitespace-nowrap">
+              <p className="text-sm font-bold">{index + 1}</p>
+              <p className="mx-1 whitespace-nowrap text-xs font-bold">
                 {formatPriceToCurrency(price)}원
               </p>
               <p className="truncate">{description}</p>

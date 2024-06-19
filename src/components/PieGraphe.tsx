@@ -1,5 +1,5 @@
 import { tagItems } from "@/data/data";
-import { TagSummary } from "@/utilities/common";
+import { TagSummary } from "@/types/common";
 import { Cell, Pie, PieChart, Text } from "recharts";
 
 type Props = {

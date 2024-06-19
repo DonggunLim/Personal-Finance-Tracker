@@ -1,8 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { AuthUser } from "@/service/user";
 import { MiddlewareFunction } from "@/types/middleware";
+import { AuthUser } from "@/types/user";
 import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 interface AuthData {
   user: AuthUser;
@@ -10,7 +10,7 @@ interface AuthData {
 
 export const authMiddleware: MiddlewareFunction<AuthData> = async (
   _request,
-  _payload
+  _payload,
 ) => {
   const session = await getServerSession(authOptions);
   const user = session?.user;
@@ -22,7 +22,7 @@ export const authMiddleware: MiddlewareFunction<AuthData> = async (
         {
           error: "Authentication error",
         },
-        { status: 401 }
+        { status: 401 },
       ),
     };
   }

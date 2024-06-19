@@ -1,11 +1,5 @@
+import { AuthUser } from "@/types/user";
 import { client } from "./sanity";
-
-export type AuthUser = {
-  id: string;
-  name: string;
-  email: string;
-  image: string;
-};
 
 export const getUser = (userId: string) => {
   const query = `*[_type == "user" && _id == "${userId}"]`;
@@ -28,7 +22,7 @@ export const addUser = ({ id, name, email, image }: AuthUser) => {
 
 export const updateUserinfo = (
   userId: string,
-  updatedObject: { [title: string]: string }
+  updatedObject: { [title: string]: string },
 ) => {
   return client //
     .patch(userId)

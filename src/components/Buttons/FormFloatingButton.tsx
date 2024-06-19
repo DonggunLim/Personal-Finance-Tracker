@@ -4,9 +4,8 @@ import { useState } from "react";
 import { FormData } from "../ExpenseFormModal";
 import ExpenseFormModal from "../ExpenseFormModal";
 import AddIconButton from "./AddIconButton";
-import { Record } from "@/utilities/common";
-import { RecordActionType } from "@/hooks/useRecords";
 import { useToast } from "@/hooks/useToast";
+import { Record, RecordActionType } from "@/types/record";
 type Props = {
   manageRecord: (record: Record, action: RecordActionType) => void;
 };

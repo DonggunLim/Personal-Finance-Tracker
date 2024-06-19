@@ -2,9 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FormDataKeys } from "../ExpenseFormModal";
+import { Option, SelectedItem } from "@/types/dropdown";
 
-type Option = { icon?: string; title: string };
-type SelectedItem = { title: string; icon?: string };
 type Props = {
   options: Option[];
   title: string;

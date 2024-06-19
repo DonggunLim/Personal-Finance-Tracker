@@ -1,5 +1,5 @@
+import { Record } from "@/types/record";
 import {
-  Record,
   calculateTotalExpense,
   formatPriceToCurrency,
 } from "@/utilities/common";

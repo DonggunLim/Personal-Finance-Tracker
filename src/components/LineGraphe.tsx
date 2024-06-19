@@ -1,6 +1,7 @@
 "use client";
 
-import { LineChartData, formatPriceToCurrency } from "@/utilities/common";
+import { LineChartData } from "@/types/common";
+import { formatPriceToCurrency } from "@/utilities/common";
 import {
   LineChart,
   Line,
@@ -51,10 +52,10 @@ const CustomTooltip = ({
 }: CustomTooltipExtends) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-neutral-900 text-white px-2 py-1 rounded-xl">
+      <div className="rounded-xl bg-neutral-900 px-2 py-1 text-white">
         <p className="text-xs font-medium">{label}</p>
         <p className="text-base font-bold">{`${formatPriceToCurrency(
-          payload[0].value as string
+          payload[0].value as string,
         )}원`}</p>
         {parseInt(payload[0].value as string) > parseInt(limit) && (
           <p className="text-red-500">일일 지출 한도 초과</p>

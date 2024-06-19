@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import PriceInput from "./Form/PriceInput";
 import DatePicker from "./Form/DatePicker";
 import CommentInput from "./Form/CommentInput";
-import { Record } from "@/utilities/common";
 import DropdownMenu from "./UI/DropdownMenu";
 import { installmentItem, paymentItems, tagItems } from "@/data/data";
+import { Record } from "@/types/record";
 
 type Props = {
   onClose: () => void;

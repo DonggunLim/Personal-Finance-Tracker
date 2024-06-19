@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import PeriodSelector from "./PeriodSelector";
 import ExpenditureTrendChart from "./ExpenditureTrendChart";
-import { Record } from "@/utilities/common";
 import { SanityUser } from "@/types/user";
 import TagRatioTrendChart from "./TagRatioTrendChart";
 import Records from "./Records";
+import { Record } from "@/types/record";
 
 export default function ChartPage() {
   const [period, setPeriod] = useState({ startDate: "", endDate: "" });
@@ -47,7 +47,7 @@ export default function ChartPage() {
   }, []);
 
   return (
-    <main className="max-w-7xl mx-auto px-4 flex flex-col gap-4">
+    <main className="mx-auto flex max-w-7xl flex-col gap-4 px-4">
       <div className="mt-12">
         <PeriodSelector
           handleStartDate={handleStartDate}
@@ -55,7 +55,7 @@ export default function ChartPage() {
         />
       </div>
       {records.length > 0 && (
-        <div className="w-full flex flex-wrap gap-2">
+        <div className="flex w-full flex-wrap gap-2">
           <div className="box w-fit">
             <ExpenditureTrendChart
               records={records}

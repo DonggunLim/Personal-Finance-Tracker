@@ -1,10 +1,7 @@
 import { tagItems } from "@/data/data";
-import {
-  Record,
-  TagSummary,
-  formatPriceToCurrency,
-  orderByTag,
-} from "@/utilities/common";
+import { TagSummary } from "@/types/common";
+import { Record } from "@/types/record";
+import { formatPriceToCurrency, orderByTag } from "@/utilities/common";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -20,11 +17,11 @@ export default function TagRank({ records }: Props) {
 
   return (
     <div>
-      <p className="text-xs font-medium mb-1">🏆가장 많이 사용한 태그(지출)</p>
+      <p className="mb-1 text-xs font-medium">🏆가장 많이 사용한 태그(지출)</p>
       <ul className="box">
         {rankByTag.map(({ tag, count, total_price }, index) => (
           <li
-            className="flex items-center justify-between py-2 px-1 hover:bg-neutral-100 rounded-lg"
+            className="flex items-center justify-between rounded-lg px-1 py-2 hover:bg-neutral-100"
             key={index}
           >
             <div className="flex">

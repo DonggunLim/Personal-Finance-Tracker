@@ -1,6 +1,8 @@
-import { Record, TagSummary, orderByTag } from "@/utilities/common";
+import { orderByTag } from "@/utilities/common";
 import PieGraphe from "./PieGraphe";
 import { useEffect, useState } from "react";
+import { Record } from "@/types/record";
+import { TagSummary } from "@/types/common";
 
 type Props = {
   records: Record[];

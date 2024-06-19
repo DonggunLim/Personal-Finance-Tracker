@@ -3,7 +3,6 @@
 import Records from "./Records";
 import TagRank from "./TagRank";
 import UserSetForm from "./UserSetForm";
-import { Record } from "@/utilities/common";
 import ExpenditureRank from "./ExpenditureRank";
 import DailyLimitExceeds from "./DailyLimitExceeds";
 import SelectedMonth from "./SelectedMonth";
@@ -12,6 +11,7 @@ import { useUserData } from "@/hooks/useUserData";
 import { useRecords } from "@/hooks/useRecords";
 import FormFloatingButton from "./Buttons/FormFloatingButton";
 import TotalExpense from "./TotalExpense";
+import { Record } from "@/types/record";
 
 type Props = {
   initialRecords: Record[];

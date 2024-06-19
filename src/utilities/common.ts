@@ -1,42 +1,5 @@
-export type Record = {
-  date: string;
-  price: string;
-  description: string;
-  paymentMethod: string;
-  tag: string;
-  installment: string;
-  installmentDetails: InstallmentDetails;
-  _id?: string;
-};
-
-export type InstallmentDetails = {
-  isInstallment: boolean;
-  installmentString: string;
-  installmentPeriod?: number;
-  installmentAmount?: number;
-  firstPaymentDate?: string;
-};
-
-export type GroupedRecords = {
-  [key: string]: Record[];
-};
-
-export type TagSummary = {
-  tag: string;
-  count: number;
-  total_price: number;
-};
-
-export type PriceSummary = {
-  tag: string;
-  description: string;
-  price: string;
-};
-
-export type LineChartData = {
-  name: string;
-  totalExpense: number;
-};
+import { LineChartData } from "@/types/common";
+import { GroupedRecords, Record } from "@/types/record";
 
 export const formatPriceToCurrency = (value: string | number) => {
   const numberValue = typeof value === "string" ? Number(value) : value;

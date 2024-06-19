@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  GroupedRecords,
-  Record,
-  convertDateToYYYYMMDD,
-} from "@/utilities/common";
+import { GroupedRecords, Record, RecordActionType } from "@/types/record";
+import { convertDateToYYYYMMDD } from "@/utilities/common";
 import { useEffect, useRef, useState } from "react";
-
-export type RecordActionType = "delete" | "update" | "add";
 
 export const useRecords = (
   currentDate: Date,

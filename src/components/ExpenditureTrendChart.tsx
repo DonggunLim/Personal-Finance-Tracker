@@ -1,10 +1,8 @@
-import {
-  LineChartData,
-  Record,
-  processGroupedRecordsToLineChartData,
-} from "@/utilities/common";
+import { processGroupedRecordsToLineChartData } from "@/utilities/common";
 import LineGraphe from "./LineGraphe";
 import { useEffect, useState } from "react";
+import { Record } from "@/types/record";
+import { LineChartData } from "@/types/common";
 
 type Props = {
   records: Record[];

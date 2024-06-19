@@ -1,17 +1,15 @@
 "use client";
 
 import {
-  GroupedRecords,
-  Record,
   calculateTotalExpense,
   formatPriceToCurrency,
   groupRecordsByDate,
 } from "@/utilities/common";
 import { useEffect, useState } from "react";
 import RecordCard from "./RecordCard";
-import { RecordActionType } from "@/hooks/useRecords";
 import Tooltip from "./UI/Tooltip";
 import { SanityUser } from "@/types/user";
+import { GroupedRecords, Record, RecordActionType } from "@/types/record";
 
 type Props = {
   records: Record[];

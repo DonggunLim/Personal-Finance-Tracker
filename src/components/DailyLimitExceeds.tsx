@@ -1,4 +1,5 @@
-import { Record, countDaysOfExceeds } from "@/utilities/common";
+import { Record } from "@/types/record";
+import { countDaysOfExceeds } from "@/utilities/common";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -18,8 +19,8 @@ export default function DailyLimitExceeds({
 
   return (
     <div>
-      <p className="text-xs font-medium mb-1">🚨일일 지출 한도 초과 횟수</p>
-      <div className="box bg-red-100 h-20 flex items-center justify-center">
+      <p className="mb-1 text-xs font-medium">🚨일일 지출 한도 초과 횟수</p>
+      <div className="box flex h-20 items-center justify-center bg-red-100">
         <p className="text-3xl font-medium">
           {exceedCount}/<span className="text-xl">31</span>
         </p>

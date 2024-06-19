@@ -1,4 +1,4 @@
-import { Record, formatPriceToCurrency } from "@/utilities/common";
+import { formatPriceToCurrency } from "@/utilities/common";
 import { useState } from "react";
 import CloseIcon from "./Icons/CloseIcon";
 import { LiaEdit } from "react-icons/lia";
@@ -6,9 +6,9 @@ import Popover from "./UI/Popover";
 import { FormData } from "./ExpenseFormModal";
 import ExpenseFormModal from "./ExpenseFormModal";
 import CommonModal from "./common/CommonModal";
-import { RecordActionType } from "@/hooks/useRecords";
 import { useToast } from "@/hooks/useToast";
 import { paymentItems, tagItems } from "@/data/data";
+import { Record, RecordActionType } from "@/types/record";
 
 type Props = {
   record: Record;
