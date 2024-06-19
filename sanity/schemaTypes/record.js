@@ -37,6 +37,11 @@ export default {
     {
       title: 'Installment',
       name: 'installment',
+      type: 'string',
+    },
+    {
+      title: 'Installment Details',
+      name: 'installmentDetails',
       type: 'object',
       fields: [
         {
