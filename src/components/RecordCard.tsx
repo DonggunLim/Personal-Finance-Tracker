@@ -13,7 +13,7 @@ import Tooltip from "./UI/Tooltip";
 
 type Props = {
   record: Record;
-  manageRecord: (record: Record, action: RecordActionType) => void;
+  manageRecord?: (record: Record, action: RecordActionType) => void;
 };
 
 export default function RecordCard({ record, manageRecord }: Props) {
@@ -53,7 +53,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
     }) //
       .then((res) => {
         if (res.ok) {
-          manageRecord(record, "delete");
+          manageRecord?.(record, "delete");
           toast.success("기록을 삭제 하였습니다.");
         } else {
           throw new Error(`서버에서 응답이 올바르지 않습니다.`);
@@ -61,7 +61,7 @@ export default function RecordCard({ record, manageRecord }: Props) {
       })
       .catch((error) => {
         console.error(error);
-        manageRecord(record, "add");
+        manageRecord?.(record, "add");
         toast.error(`${error.message}`);
       })
       .finally(() => {
@@ -86,13 +86,13 @@ export default function RecordCard({ record, manageRecord }: Props) {
         return res.json();
       })
       .then((data) => {
-        manageRecord(data, "update");
+        manageRecord?.(data, "update");
         toast.success("기록을 수정 하였습니다.");
       })
       .catch((error) => {
         console.error(error);
-        manageRecord(formData, "delete");
-        manageRecord(prevRecord, "add");
+        manageRecord?.(formData, "delete");
+        manageRecord?.(prevRecord, "add");
         toast.error(`${error.message}`);
       })
       .finally(() => {
@@ -198,9 +198,6 @@ export default function RecordCard({ record, manageRecord }: Props) {
             </section>
           </CommonModal>
         )}
-        {/* <div className="alert ">
-
-        </div> */}
       </div>
     </div>
   );

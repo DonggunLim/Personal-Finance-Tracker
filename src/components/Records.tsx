@@ -13,7 +13,7 @@ import { GroupedRecords, Record, RecordActionType } from "@/types/record";
 
 type Props = {
   records: Record[];
-  manageRecord: (record: Record, action: RecordActionType) => void;
+  manageRecord?: (record: Record, action: RecordActionType) => void;
   userData: SanityUser;
 };
 

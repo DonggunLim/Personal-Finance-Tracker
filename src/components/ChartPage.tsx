@@ -68,7 +68,7 @@ export default function ChartPage() {
         </div>
       )}
       <div>
-        <Records records={records} />
+        <Records records={records} userData={userData} />
       </div>
     </main>
   );
