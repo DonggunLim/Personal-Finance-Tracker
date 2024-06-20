@@ -5,7 +5,7 @@ import CalendarIcon from "../Icons/CalendarIcon";
 type Props = {
   onChange: (value: string, fieldName: "date") => void;
   initialValue?: string;
-  title: string;
+  title?: string;
   error?: string;
 };
 
