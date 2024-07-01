@@ -123,12 +123,14 @@ export default function RecordCard({ record, manageRecord }: Props) {
         <p className={`text-xs font-medium`}>{description}</p>
         <div className="flex items-center">
           {installmentDetails?.isInstallment && (
-            <Tooltip
-              text={`할부 개월: ${installmentDetails.installmentPeriod}개월 
-               월 금액: ${formatPriceToCurrency(installmentDetails.installmentAmount!)}`}
-            >
-              <div className="text-lg">📌</div>
-            </Tooltip>
+            <div className="absolute -right-5 -top-5">
+              <Tooltip
+                text={`할부 개월: ${installmentDetails.installmentPeriod}개월 
+               금액(월): ${formatPriceToCurrency(installmentDetails.installmentAmount!)}`}
+              >
+                <div className="text-3xl">📌</div>
+              </Tooltip>
+            </div>
           )}
           <p className="text-lg font-bold">{formatPriceToCurrency(price)}원</p>
         </div>
