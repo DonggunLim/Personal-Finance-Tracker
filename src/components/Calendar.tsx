@@ -36,7 +36,7 @@ export default function Calendar({ onClick, initialValue }: Props) {
   } = useCalendar({ initialValue });
 
   return (
-    <div className="absolute z-50 mt-2 w-full rounded-md bg-white shadow-lg">
+    <div className="absolute z-50 mt-2 w-full min-w-72 rounded-md bg-white shadow-lg">
       <div className="flex flex-col items-center gap-y-2">
         <p className="font-semibold">
           {MONTH[today.month()]}, {today.year()}
