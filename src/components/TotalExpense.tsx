@@ -6,13 +6,14 @@ import {
 
 type Props = {
   records: Record[];
+  title?: string;
 };
 
-export default function TotalExpense({ records }: Props) {
+export default function TotalExpense({ records, title }: Props) {
   return (
     <div>
-      <p className="mb-1 text-xs font-medium">👛이번 달 총지출</p>
-      <div className="box">
+      {title && <p className="mb-1 text-xs font-medium">{title}</p>}
+      <div className="box min-w-72">
         <p className="text-center text-xl font-bold">
           {formatPriceToCurrency(calculateTotalExpense(records))}원
         </p>
