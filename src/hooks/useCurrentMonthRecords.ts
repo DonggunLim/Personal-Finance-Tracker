@@ -4,7 +4,7 @@ import { GroupedRecords, Record, RecordActionType } from "@/types/record";
 import { convertDateToYYYYMMDD } from "@/utilities/common";
 import { useEffect, useRef, useState } from "react";
 
-export const useRecords = (
+export const useCurrentMonthReocrds = (
   currentDate: Date,
   initialRecords: Record[],
   cachedKey: string,
