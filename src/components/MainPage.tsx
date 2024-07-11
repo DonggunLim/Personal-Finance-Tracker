@@ -41,7 +41,7 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
           userData={userData}
         />
       </div>
-      <div className="gird-cols-1 order-2 grid auto-rows-min gap-8 md:max-xl:grid-cols-2 xl:order-3">
+      <div className="gird-cols-1 top-24 order-2 grid h-fit auto-rows-min gap-8 md:max-xl:grid-cols-2 xl:sticky xl:order-3">
         <FormFloatingButton manageRecord={manageRecord} />
         <TotalExpense records={currentRecords} title="👛이번 달 총지출" />
         <UserSetForm userData={userData} manageUserData={manageUserData} />
