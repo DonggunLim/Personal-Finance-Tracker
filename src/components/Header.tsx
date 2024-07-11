@@ -4,13 +4,13 @@ import UserInfo from "./UserInfo";
 
 export default function Header() {
   return (
-    <header className="w-full h-12 bg-white sticky top-0 shadow-sm ">
-      <div className="max-w-6xl h-full m-auto px-4 flex items-center justify-end">
+    <header className="sticky top-0 z-50 h-12 w-full bg-white shadow-sm">
+      <div className="m-auto flex h-full max-w-6xl items-center justify-end px-4">
         <ul className="flex gap-2">
-          <li className="text-sm font-bold flex items-center hover:text-purple-400 cursor-pointer">
+          <li className="flex cursor-pointer items-center text-sm font-bold hover:text-purple-400">
             <Link href="/">홈</Link>
           </li>
-          <li className="text-sm font-bold flex items-center hover:text-purple-400 cursor-pointer">
+          <li className="flex cursor-pointer items-center text-sm font-bold hover:text-purple-400">
             <Link href="/report">리포트</Link>
           </li>
           <li>
