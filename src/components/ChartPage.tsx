@@ -2,73 +2,70 @@
 
 import { useEffect, useState } from "react";
 import PeriodSelector from "./PeriodSelector";
-import ExpenditureTrendChart from "./ExpenditureTrendChart";
 import { SanityUser } from "@/types/user";
-import TagRatioTrendChart from "./TagRatioTrendChart";
-import Records from "./Records";
 import { Record } from "@/types/record";
+import TotalExpense from "./TotalExpense";
+import GrapheMenu from "./GrapheMenu";
+import BarGraphe from "./BarGraphe";
+import PieGraphe from "./PieGraphe";
+import LineGraphe from "./LineGraphe";
+import RecordCard from "./RecordCard";
+import { Range, useRangeRecords } from "@/hooks/useRangeRecords";
+import { useUserData } from "@/hooks/useUserData";
 
 export default function ChartPage() {
-  const [period, setPeriod] = useState({ startDate: "", endDate: "" });
-  const [records, setRecords] = useState<Record[]>([]);
-  const [userData, setUserdata] = useState<SanityUser>({
-    id: "",
-    name: "",
-    email: "",
-    image: "",
-    fixedIncome: "",
-    dailySpendingLimit: "",
-  });
-
-  const handleStartDate = (startDate: string) =>
-    setPeriod({ ...period, startDate });
-  const handleEndDate = (endDate: string) => setPeriod({ ...period, endDate });
-
-  useEffect(() => {
-    if (!period.endDate || !period.startDate) return;
-
-    fetch(`/api/records/period/${period.startDate}~${period.endDate}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then(setRecords)
-      .catch((error) => console.error("There was an error!", error));
-  }, [period.startDate, period.endDate]);
-
-  useEffect(() => {
-    fetch("/api/user", {
-      method: "GET",
-    }) //
-      .then((res) => res.json())
-      .then((res) => setUserdata(res[0]));
-  }, []);
+  const [range, setRange] = useState<Range>({});
+  const [selectedMenu, setSelectedMenu] = useState("bar");
+  const [selectedRecords, setSelectedRecords] = useState<Record[]>([]);
+  const { userData } = useUserData();
+  const { rangeRecords } = useRangeRecords(range);
+  const handleDateChange = (field: "startDate" | "endDate") => (date: string) =>
+    setRange((prevRange) => ({ ...prevRange, [field]: date }));
 
   return (
-    <main className="mx-auto flex max-w-7xl flex-col gap-4 px-4">
-      <div className="mt-12">
-        <PeriodSelector
-          handleStartDate={handleStartDate}
-          handleEndDate={handleEndDate}
-        />
+    <main className="relative mx-auto mt-12 grid max-w-[1280px] grid-cols-1 gap-x-16 px-4 xl:grid-cols-[2fr_8fr_1fr]">
+      <div className="">
+        <TotalExpense records={rangeRecords} title="💰합계 지출" />
       </div>
-      {records.length > 0 && (
-        <div className="flex w-full flex-wrap gap-2">
-          <div className="box w-fit">
-            <ExpenditureTrendChart
-              records={records}
-              dailySpendingLimit={userData.dailySpendingLimit}
-            />
+      <div className="flex flex-col gap-y-2">
+        <PeriodSelector handleDateChange={handleDateChange} />
+        <GrapheMenu selected={selectedMenu} setSelected={setSelectedMenu} />
+        {rangeRecords.length > 0 && (
+          <div className="flex w-full flex-wrap gap-2">
+            {selectedMenu === "bar" && (
+              <div className="box h-96 w-full">
+                <BarGraphe
+                  records={rangeRecords}
+                  setSelectedRecords={setSelectedRecords}
+                />
+              </div>
+            )}
+            {selectedMenu === "pie" && (
+              <div className="box h-96 w-full">
+                <PieGraphe
+                  records={rangeRecords}
+                  setSelectedRecords={setSelectedRecords}
+                />
+              </div>
+            )}
+            {selectedMenu === "line" && (
+              <div className="box h-96 w-full">
+                <LineGraphe
+                  records={rangeRecords}
+                  dailySpendingLimit={userData.dailySpendingLimit}
+                  setSelectedRecords={setSelectedRecords}
+                />
+              </div>
+            )}
           </div>
-          <div className="box w-fit">
-            <TagRatioTrendChart records={records} />
+        )}
+        {!!selectedRecords.length && (
+          <div>
+            {selectedRecords.map((record, index) => (
+              <RecordCard record={record} key={index} />
+            ))}
           </div>
-        </div>
-      )}
-      <div>
-        <Records records={records} userData={userData} />
+        )}
       </div>
     </main>
   );

@@ -8,7 +8,7 @@ import DailyLimitExceeds from "./DailyLimitExceeds";
 import SelectedMonth from "./SelectedMonth";
 import { useDateNavigation } from "@/hooks/useDateNavigation";
 import { useUserData } from "@/hooks/useUserData";
-import { useRecords } from "@/hooks/useRecords";
+import { useCurrentMonthReocrds } from "@/hooks/useCurrentMonthRecords";
 import FormFloatingButton from "./Buttons/FormFloatingButton";
 import TotalExpense from "./TotalExpense";
 import { Record } from "@/types/record";
@@ -21,7 +21,7 @@ type Props = {
 export default function MainPage({ initialRecords, cachedKey }: Props) {
   const { currentDate, handlePrevBtn, handleNextBtn } = useDateNavigation();
   const { userData, manageUserData } = useUserData();
-  const { currentRecords, manageRecord } = useRecords(
+  const { currentRecords, manageRecord } = useCurrentMonthReocrds(
     currentDate,
     initialRecords,
     cachedKey,
@@ -43,7 +43,7 @@ export default function MainPage({ initialRecords, cachedKey }: Props) {
       </div>
       <div className="gird-cols-1 order-2 grid auto-rows-min gap-8 md:max-xl:grid-cols-2 xl:order-3">
         <FormFloatingButton manageRecord={manageRecord} />
-        <TotalExpense records={currentRecords} />
+        <TotalExpense records={currentRecords} title="👛이번 달 총지출" />
         <UserSetForm userData={userData} manageUserData={manageUserData} />
         <DailyLimitExceeds
           records={currentRecords}

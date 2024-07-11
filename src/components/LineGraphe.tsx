@@ -1,7 +1,12 @@
 "use client";
 
 import { LineChartData } from "@/types/common";
-import { formatPriceToCurrency } from "@/utilities/common";
+import { Record } from "@/types/record";
+import {
+  formatPriceToCurrency,
+  processGroupedRecordsToLineChartData,
+} from "@/utilities/common";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,6 +14,8 @@ import {
   XAxis,
   ReferenceLine,
   TooltipProps,
+  ResponsiveContainer,
+  Cell,
 } from "recharts";
 import {
   NameType,
@@ -16,31 +23,48 @@ import {
 } from "recharts/types/component/DefaultTooltipContent";
 
 type Props = {
-  data: LineChartData[];
+  records: Record[];
   dailySpendingLimit: string;
+  setSelectedRecords: Dispatch<SetStateAction<Record[]>>;
 };
 
 type CustomTooltipExtends = TooltipProps<ValueType, NameType> & {
   limit: string;
 };
 
-export default function LineGraphe({ data, dailySpendingLimit }: Props) {
+export default function LineGraphe({
+  records,
+  dailySpendingLimit,
+  setSelectedRecords,
+}: Props) {
+  const [lineGrapheData, setLineGrapheData] = useState<LineChartData[]>([]);
+  const handleClick = (date: string | undefined) =>
+    setSelectedRecords(records.filter((r) => r.date === date));
+
+  useEffect(() => {
+    setLineGrapheData(processGroupedRecordsToLineChartData(records));
+  }, [records]);
   return (
-    <LineChart width={300} height={200} data={data}>
-      <ReferenceLine
-        y={parseInt(dailySpendingLimit)}
-        label="Max"
-        stroke="red"
-      />
-      <XAxis dataKey="name" />
-      <Tooltip content={<CustomTooltip limit={dailySpendingLimit} />} />
-      <Line
-        type="monotone"
-        dataKey="totalExpense"
-        stroke="#8884d8"
-        strokeWidth={3}
-      />
-    </LineChart>
+    <ResponsiveContainer>
+      <LineChart
+        data={lineGrapheData}
+        onClick={(data) => handleClick(data.activeLabel)}
+      >
+        <ReferenceLine
+          y={parseInt(dailySpendingLimit)}
+          label="Max"
+          stroke="red"
+        />
+        <XAxis dataKey="name" />
+        <Tooltip content={<CustomTooltip limit={dailySpendingLimit} />} />
+        <Line
+          type="monotone"
+          dataKey="totalExpense"
+          stroke="#8884d8"
+          strokeWidth={3}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
 

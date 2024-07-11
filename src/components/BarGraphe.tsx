@@ -1,10 +1,12 @@
+import { COLORS } from "@/data/data";
 import { TagSummary } from "@/types/common";
 import { Record } from "@/types/record";
 import { formatPriceToCurrency, orderByTag } from "@/utilities/common";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
+  Cell,
   ResponsiveContainer,
   Tooltip,
   TooltipProps,
@@ -15,10 +17,12 @@ import { ValueType } from "tailwindcss/types/config";
 
 type Props = {
   records: Record[];
+  setSelectedRecords: Dispatch<SetStateAction<Record[]>>;
 };
-
-export default function BarGraphe({ records }: Props) {
+export default function BarGraphe({ records, setSelectedRecords }: Props) {
   const [grapheData, setGrapheData] = useState<TagSummary[]>([]);
+  const handleClick = (entry: TagSummary) =>
+    setSelectedRecords(records.filter((r) => r.tag === entry.tag));
 
   useEffect(() => {
     setGrapheData(orderByTag(records));
@@ -26,8 +30,17 @@ export default function BarGraphe({ records }: Props) {
   return (
     <ResponsiveContainer>
       <BarChart width={150} height={40} data={grapheData} barSize={30}>
-        <Bar dataKey="total_price" fill="#8884d8" />
-        <XAxis dataKey="tag" scale="point" padding={{ left: 30, right: 30 }} />
+        <Bar dataKey="total_price" fill="#8884d8">
+          {grapheData.map((entry, index) => (
+            <Cell
+              cursor="pointer"
+              fill={COLORS[index % COLORS.length]}
+              key={`cell-${index}`}
+              onClick={() => handleClick(entry)}
+            />
+          ))}
+        </Bar>
+        <XAxis dataKey="tag" scale="point" padding={{ left: 60, right: 60 }} />
         <Tooltip content={<CustomTooltip />} />
       </BarChart>
     </ResponsiveContainer>

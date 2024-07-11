@@ -37,3 +37,22 @@ export const installmentItem = [
   { title: "11개월" },
   { title: "12개월" },
 ];
+
+export const COLORS = [
+  "#FF9999", // 음식
+  "#FFCC99", // 쇼핑
+  "#FFFF99", // 주거
+  "#99FF99", // 교통
+  "#99CCFF", // 오락
+  "#FF99CC", // 교육
+  "#FFB3B3", // 의료
+  "#99FFCC", // 여행
+  "#CCFF99", // 통신
+  "#99CCFF", // 공과금
+  "#FF99CC", // 직업
+  "#FFB3D9", // 육아
+  "#B3FF99", // 반려동물
+  "#CCFFCC", // 선물
+  "#FFB3FF", // 저축
+  "#FFFFB3", // 기타
+];
