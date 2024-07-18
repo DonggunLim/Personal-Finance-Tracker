@@ -7,10 +7,7 @@ type Props = {
 
 export default function ToastContainer({ toasts }: Props) {
   return (
-    <div
-      className="fixed top-0 right-1/2 transform translate-x-1/2 mt-4 z-50
-     flex flex-col gap-y-2 w-72"
-    >
+    <div className="fixed right-1/2 top-10 z-[100] mt-4 flex w-72 translate-x-1/2 transform flex-col gap-y-2">
       {toasts.map((toast) => (
         <Toast key={toast.id} {...toast} />
       ))}
